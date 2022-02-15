@@ -1,16 +1,16 @@
 package com.raphau.springboot.stockExchange.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.raphau.springboot.stockExchange.dto.UserDTO;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
 @Table(name="user", schema = "stock_exchange")
-public class User implements Serializable {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +27,7 @@ public class User implements Serializable {
     private String username;
 
     @Column(name="password")
+    @JsonIgnore
     private String password;
 
     @Column(name="money")
@@ -41,6 +42,10 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonBackReference
     private List<BuyOffer> buyOffers;
+    
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<SellOffer> sellOffers;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonBackReference
@@ -79,7 +84,15 @@ public class User implements Serializable {
         this.buyOffers = buyOffers;
     }
 
-    public int getId() {
+    public List<SellOffer> getSellOffers() {
+		return sellOffers;
+	}
+
+	public void setSellOffers(List<SellOffer> sellOffers) {
+		this.sellOffers = sellOffers;
+	}
+
+	public int getId() {
         return id;
     }
 

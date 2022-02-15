@@ -7,10 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.Serializable;
-
 @RestController
-public class CompanyRestController implements Serializable {
+public class CompanyRestController {
 
     @Autowired
     private CompanyService companyService;

@@ -15,7 +15,6 @@ import com.raphau.springboot.stockExchange.exception.StockAmountException;
 import com.raphau.springboot.stockExchange.exception.StockNotFoundException;
 import com.raphau.springboot.stockExchange.exception.UserNotFoundException;
 import com.raphau.springboot.stockExchange.security.MyUserDetails;
-import com.raphau.springboot.stockExchange.service.TradeServiceImpl;
 import com.raphau.springboot.stockExchange.service.ints.SellOfferService;
 import com.raphau.springboot.stockExchange.service.ints.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +39,6 @@ public class SellOfferServiceImpl implements SellOfferService {
     @Autowired
     private CompanyRepository companyRepository;
 
-    // TODO: to change
-    @Autowired
-    private TradeServiceImpl tradeService;
 
     @Override
     public Map<String, Object> getUserSellOffers() {
@@ -60,10 +56,7 @@ public class SellOfferServiceImpl implements SellOfferService {
 
         User user = userOpt.get();
 
-        List<SellOffer> sellOffers = new ArrayList<>();
-        List<Stock> stocks = user.getStocks();
-
-        stocks.forEach(stock -> sellOffers.addAll(stock.getSellOffers()));
+        List<SellOffer> sellOffers = user.getSellOffers();
         sellOffers.removeIf(sellOffer -> !sellOffer.isActual());
 
         Map<String, Object> objects = new HashMap<>();
@@ -109,7 +102,23 @@ public class SellOfferServiceImpl implements SellOfferService {
     public TestDetailsDTO addSellOffer(SellOfferDTO sellOfferDTO) throws InterruptedException {
         long timeApp = System.currentTimeMillis();
         TestDetailsDTO testDetailsDTO = new TestDetailsDTO();
-        tradeService.trade(sellOfferDTO.getCompany_id(), sellOfferDTO, false);
+        Calendar c = Calendar.getInstance();
+        c.setTime(sellOfferDTO.getDateLimit());
+        c.add(Calendar.DATE, 1);
+        sellOfferDTO.setDateLimit(c.getTime());
+        sellOfferDTO.setId(0);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Company company = companyRepository.getOne(sellOfferDTO.getCompany_id());
+        MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
+        User user = userService.findByUsername(userDetails.getUsername()).get();
+        Stock stock = stockRepository.findByCompanyAndUser(company, user).get();
+        if(sellOfferDTO.getAmount() > stock.getAmount() || sellOfferDTO.getAmount() <= 0){
+            throw new StockAmountException("Wrong amount of resources - stock " + stock.getAmount() + " - sellOffer " + sellOfferDTO.getAmount());
+        }
+        stock.setAmount(stock.getAmount() - sellOfferDTO.getAmount());
+        SellOffer sellOffer = new SellOffer(sellOfferDTO, user, stock);
+        stockRepository.save(stock);
+        sellOfferRepository.save(sellOffer);
         testDetailsDTO.setDatabaseTime(0);
         testDetailsDTO.setApplicationTime(System.currentTimeMillis() - timeApp);
         return testDetailsDTO;
@@ -117,3 +126,30 @@ public class SellOfferServiceImpl implements SellOfferService {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

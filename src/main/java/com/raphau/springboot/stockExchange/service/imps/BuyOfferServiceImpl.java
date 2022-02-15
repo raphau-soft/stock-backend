@@ -12,7 +12,6 @@ import com.raphau.springboot.stockExchange.exception.CompanyNotFoundException;
 import com.raphau.springboot.stockExchange.exception.NotEnoughMoneyException;
 import com.raphau.springboot.stockExchange.exception.UserNotFoundException;
 import com.raphau.springboot.stockExchange.security.MyUserDetails;
-import com.raphau.springboot.stockExchange.service.TradeServiceImpl;
 import com.raphau.springboot.stockExchange.service.ints.BuyOfferService;
 import com.raphau.springboot.stockExchange.service.ints.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +36,6 @@ public class BuyOfferServiceImpl implements BuyOfferService {
 
     @Autowired
     private CompanyRepository companyRepository;
-
-    // TODO: to change
-    @Autowired
-    private TradeServiceImpl tradeService;
 
     @Override
     public Map<String, Object> getUserBuyOffers() {
@@ -103,7 +98,34 @@ public class BuyOfferServiceImpl implements BuyOfferService {
             throws InterruptedException {
         long timeApp = System.currentTimeMillis();
         TestDetailsDTO testDetailsDTO = new TestDetailsDTO();
-        tradeService.trade(buyOfferDTO.getCompany_id(), buyOfferDTO, true);
+        Calendar c = Calendar.getInstance();
+        c.setTime(buyOfferDTO.getDateLimit());
+        c.add(Calendar.DATE, 1);
+        buyOfferDTO.setDateLimit(c.getTime());
+        buyOfferDTO.setId(0);
+        Authentication auth = SecurityContextHolder
+                .getContext().getAuthentication();
+        MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
+        User user = userRepository
+                .findByUsername(userDetails.getUsername()).get();
+        Company company = companyRepository
+                .findById(buyOfferDTO.getCompany_id()).get();
+        if(user.getMoney().compareTo(buyOfferDTO.getMaxPrice()
+                .multiply(BigDecimal.valueOf(buyOfferDTO.getAmount()))) < 0
+                || buyOfferDTO.getAmount() <= 0){
+            throw new NotEnoughMoneyException("Not enough money (Amount is "
+                    + buyOfferDTO.getAmount() + "). You have "
+                    + user.getMoney().toString() + " " +
+                    "but you need " + buyOfferDTO.getMaxPrice().
+                    multiply(BigDecimal.valueOf(buyOfferDTO.getAmount()))
+                    .toString());
+        }
+        buyOfferDTO.setId(0);
+        BuyOffer buyOffer = new BuyOffer(buyOfferDTO, user, company);
+        user.setMoney(user.getMoney().subtract(buyOfferDTO.getMaxPrice()
+                .multiply(BigDecimal.valueOf(buyOfferDTO.getAmount()))));
+        userRepository.save(user);
+        buyOfferRepository.save(buyOffer);
         testDetailsDTO.setDatabaseTime(0);
         testDetailsDTO.setApplicationTime(System.currentTimeMillis() - timeApp);
         return testDetailsDTO;

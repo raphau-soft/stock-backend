@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name="company", schema = "stock_exchange")
-public class Company implements Serializable {
+public class Company {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,9 +36,6 @@ public class Company implements Serializable {
     public Company(int id, String name) {
         this.id = id;
         this.name = name;
-        this.buyOffers = buyOffers;
-        this.stocks = stocks;
-        this.stock_rates = stock_rates;
     }
 
     public int getId() {
@@ -62,9 +59,6 @@ public class Company implements Serializable {
         return "Company{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", buyOffers=" + buyOffers +
-                ", stocks=" + stocks +
-                ", stock_rates=" + stock_rates +
                 '}';
     }
 }

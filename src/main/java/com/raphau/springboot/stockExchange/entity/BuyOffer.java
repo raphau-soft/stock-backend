@@ -1,6 +1,7 @@
 package com.raphau.springboot.stockExchange.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.raphau.springboot.stockExchange.dto.BuyOfferDTO;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -57,77 +58,97 @@ public class BuyOffer implements Serializable {
         this.dateLimit = dateLimit;
         this.actual = actual;
     }
+    
+    public BuyOffer(BuyOfferDTO buyOfferDTO, User user, Company company) {
+        this.id = buyOfferDTO.getId();
+        this.company = company;
+        this.user = user;
+        this.maxPrice = buyOfferDTO.getMaxPrice();
+        this.startAmount = buyOfferDTO.getAmount();
+        this.amount = buyOfferDTO.getAmount();
+        this.dateLimit = buyOfferDTO.getDateLimit();
+        this.actual = true;
+    }
 
     public List<Transaction> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
+    public BuyOffer setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
+        return this;
     }
 
     public int getStartAmount() {
         return startAmount;
     }
 
-    public void setStartAmount(int startAmount) {
+    public BuyOffer setStartAmount(int startAmount) {
         this.startAmount = startAmount;
+        return this;
     }
 
     public boolean isActual() {
         return actual;
     }
 
-    public void setActual(boolean actual) {
+    public BuyOffer setActual(boolean actual) {
         this.actual = actual;
+        return this;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public BuyOffer setId(int id) {
         this.id = id;
+        return this;
     }
 
     public Company getCompany() {
         return company;
     }
 
-    public void setCompany(Company company) {
+    public BuyOffer setCompany(Company company) {
         this.company = company;
+        return this;
     }
 
     public User getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public BuyOffer setUser(User user) {
         this.user = user;
+        return this;
     }
 
     public BigDecimal getMaxPrice() {
         return maxPrice;
     }
 
-    public void setMaxPrice(BigDecimal maxPrice) {
+    public BuyOffer setMaxPrice(BigDecimal maxPrice) {
         this.maxPrice = maxPrice;
+        return this;
     }
 
     public int getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public BuyOffer setAmount(int amount) {
         this.amount = amount;
+        return this;
     }
 
     public Date getDateLimit() {
         return dateLimit;
     }
 
-    public void setDateLimit(Date dateLimit) {
+    public BuyOffer setDateLimit(Date dateLimit) {
         this.dateLimit = dateLimit;
+        return this;
     }
 
     @Override

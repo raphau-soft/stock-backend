@@ -4,14 +4,13 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.raphau.springboot.stockExchange.dto.SellOfferDTO;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name="sell_offer", schema = "stock_exchange")
-public class SellOffer implements Serializable {
+public class SellOffer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +20,10 @@ public class SellOffer implements Serializable {
     @ManyToOne(targetEntity = Stock.class, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="stock_id", nullable = false)
     private Stock stock;
+    
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name="user_id", nullable = false)
+    private User user;
 
     @OneToMany(mappedBy = "sellOffer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonBackReference
@@ -44,9 +47,10 @@ public class SellOffer implements Serializable {
     public SellOffer() {
     }
 
-    public SellOffer(int id, Stock stock, int startAmount, int amount, BigDecimal minPrice, Date dateLimit, boolean actual) {
+    public SellOffer(int id, Stock stock, User user, int startAmount, int amount, BigDecimal minPrice, Date dateLimit, boolean actual) {
         this.id = id;
         this.stock = stock;
+        this.user = user;
         this.startAmount = startAmount;
         this.amount = amount;
         this.minPrice = minPrice;
@@ -54,9 +58,11 @@ public class SellOffer implements Serializable {
         this.actual = actual;
     }
 
-    public SellOffer(SellOfferDTO sellOfferDTO, Stock stock) {
+    // TODO user
+    public SellOffer(SellOfferDTO sellOfferDTO, User user, Stock stock) {
         this.id = sellOfferDTO.getId();
         this.stock = stock;
+        this.user = user;
         this.startAmount = sellOfferDTO.getAmount();
         this.amount = sellOfferDTO.getAmount();
         this.minPrice = sellOfferDTO.getMinPrice();
@@ -64,68 +70,85 @@ public class SellOffer implements Serializable {
         this.actual = true;
     }
 
-    public List<Transaction> getTransactions() {
+    public User getUser() {
+		return user;
+	}
+
+	public SellOffer setUser(User user) {
+		this.user = user;
+        return this;
+	}
+
+	public List<Transaction> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
+    public SellOffer setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
+        return this;
     }
 
     public int getStartAmount() {
         return startAmount;
     }
 
-    public void setStartAmount(int startAmount) {
+    public SellOffer setStartAmount(int startAmount) {
         this.startAmount = startAmount;
+        return this;
     }
 
     public boolean isActual() {
         return actual;
     }
 
-    public void setActual(boolean actual) {
+    public SellOffer setActual(boolean actual) {
         this.actual = actual;
+        return this;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public SellOffer setId(int id) {
         this.id = id;
+        return this;
     }
 
     public Stock getStock() {
         return stock;
     }
 
-    public void setStock(Stock stock) {
+    public SellOffer setStock(Stock stock) {
         this.stock = stock;
+        return this;
     }
 
     public int getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public SellOffer setAmount(int amount) {
         this.amount = amount;
+        return this;
     }
 
     public BigDecimal getMinPrice() {
         return minPrice;
     }
 
-    public void setMinPrice(BigDecimal minPrice) {
+    public SellOffer setMinPrice(BigDecimal minPrice) {
         this.minPrice = minPrice;
+        return this;
     }
 
     public Date getDateLimit() {
         return dateLimit;
     }
 
-    public void setDateLimit(Date dateLimit) {
+    public SellOffer setDateLimit(Date dateLimit) {
         this.dateLimit = dateLimit;
+        return this;
     }
 
     @Override

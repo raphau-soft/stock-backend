@@ -1,11 +1,12 @@
 package com.raphau.springboot.stockExchange.entity;
 
+import java.util.List;
+
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
-@Table(name="test")
-public class Test implements Serializable {
+@Table(name="test", schema = "stock_exchange")
+public class Test {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,74 +16,81 @@ public class Test implements Serializable {
     @Column(name="name")
     private String name;
 
-    @Column(name="database_time")
-    private long databaseTime;
+    @Column(name="timestamp")
+    private long timestamp;
+    
+    @Column(name="finished")
+    private boolean finished;
 
-    @Column(name = "application_time")
-    private long applicationTime;
-
-    @Column(name = "semaphore_wait_time")
-    private long semaphoreWaitTime;
-
+    @OneToMany(mappedBy = "test", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<TimeData> timeDatas;
+    
+    @OneToMany(mappedBy = "test", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<CpuData> cpuDatas;
+    
     public Test() {
     }
 
-    public Test(int id, String name, long databaseTime, long applicationTime, long semaphoreWaitTime) {
-        this.id = id;
-        this.name = name;
-        this.databaseTime = databaseTime;
-        this.applicationTime = applicationTime;
-        this.semaphoreWaitTime = semaphoreWaitTime;
-    }
+	public Test(int id, String name, long timestamp, boolean finished) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.timestamp = timestamp;
+		this.finished = finished;
+	}
 
-    public long getSemaphoreWaitTime() {
-        return semaphoreWaitTime;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setSemaphoreWaitTime(long semaphoreWaitTime) {
-        this.semaphoreWaitTime = semaphoreWaitTime;
-    }
+	public List<TimeData> getTimeDatas() {
+		return timeDatas;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setTimeDatas(List<TimeData> timeDatas) {
+		this.timeDatas = timeDatas;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public List<CpuData> getCpuDatas() {
+		return cpuDatas;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public void setCpuDatas(List<CpuData> cpuDatas) {
+		this.cpuDatas = cpuDatas;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public long getDatabaseTime() {
-        return databaseTime;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setDatabaseTime(long database_time) {
-        this.databaseTime = database_time;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    @Override
-    public String toString() {
-        return "Test{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", databaseTime=" + databaseTime +
-                ", applicationTime=" + applicationTime +
-                ", semaphoreWaitTime=" + semaphoreWaitTime +
-                '}';
-    }
+	public long getTimestamp() {
+		return timestamp;
+	}
 
-    public long getApplicationTime() {
-        return applicationTime;
-    }
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
 
-    public void setApplicationTime(long application_time) {
-        this.applicationTime = application_time;
-    }
+	public boolean isFinished() {
+		return finished;
+	}
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+
+	@Override
+	public String toString() {
+		return "Test [id=" + id + ", name=" + name + ", timestamp=" + timestamp + ", finished=" + finished
+				+ "]";
+	}
+
 }
