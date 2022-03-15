@@ -60,4 +60,38 @@ public class StockServiceImpl implements StockService {
         testDetailsDTO.setApplicationTime(System.currentTimeMillis() - timeApp);
         return objects;
     }
+
+    @Override
+    public Map<String, Object> findResources(String username) {
+        long timeApp = System.currentTimeMillis();
+        TestDetailsDTO testDetailsDTO = new TestDetailsDTO();
+        long timeBase = System.currentTimeMillis();
+
+        Optional<User> userOpt = userService.findByUsername(username);
+        testDetailsDTO.setDatabaseTime(System.currentTimeMillis() - timeBase);
+
+        if(!userOpt.isPresent()){
+            throw new UserNotFoundException("User " + username + " not found");
+        }
+        User user = userOpt.get();
+        List<Stock> stocks = user.getStocks();
+        List<StockRate> stockRates = new ArrayList<>();
+        stocks.removeIf(stock -> stock.getAmount() == 0);
+        for (Stock stock : stocks) {
+            timeBase = System.currentTimeMillis();
+            Optional<StockRate> stockRate = stockRateRepository.findByCompanyAndActual(stock.getCompany(), true);
+            testDetailsDTO.setDatabaseTime(System.currentTimeMillis() - timeBase + testDetailsDTO.getDatabaseTime());
+            if(!stockRate.isPresent()){
+                throw new StockRateNotFoundException("Actual stock rate for " + stock.getCompany().getName() + " not found");
+            }
+            stockRates.add(stockRate.get());
+        }
+        Map<String, Object> objects = new HashMap<>();
+        objects.put("username", username);
+        objects.put("stock", stocks);
+        objects.put("stockRates", stockRates);
+        objects.put("testDetails", testDetailsDTO);
+        testDetailsDTO.setApplicationTime(System.currentTimeMillis() - timeApp);
+        return objects;
+    }
 }

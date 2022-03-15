@@ -153,12 +153,12 @@ public class SellOffer {
 
     @Override
     public String toString() {
-        return "SellOffer{\n\n\n" +
+        return "SellOffer{" +
                 "id=" + id +
                 ", company=" + stock.getCompany().getId() +
                 ", amount=" + amount +
                 ", minPrice=" + minPrice +
                 ", dateLimit=" + dateLimit +
-                "}\n\n\n";
+                "}";
     }
 }

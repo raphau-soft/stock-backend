@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `user`(
     `id` int NOT NULL AUTO_INCREMENT,
     `name` varchar(45) NOT NULL,
     `surname` varchar(45) NOT NULL,
-    `username` varchar(45) NOT NULL,
+    `username` varchar(45) NOT NULL UNIQUE,
     `password` varchar(120) NOT NULL,
     `role` varchar(45) NOT NULL,
     `money` float(45) NOT NULL,
@@ -77,32 +77,6 @@ CREATE TABLE IF NOT EXISTS `stock_rate`(
     PRIMARY KEY(`id`)
 );
 
-CREATE TABLE IF NOT EXISTS `test`(
-    `id` int NOT NULL AUTO_INCREMENT,
-    `name` varchar(45) NOT NULL,
-    `timestamp` bigint NOT NULL,
-    `finished` boolean NOT NULL,
-    PRIMARY KEY(`id`)
-);
-
-CREATE TABLE IF NOT EXISTS `cpu_data`(
-    `id` int NOT NULL AUTO_INCREMENT,
-    `test_id` int NOT NULL, 
-    `timestamp` bigint NOT NULL,
-    `cpu_usage` double NOT NULL,
-    PRIMARY KEY(`id`),
-    FOREIGN KEY(`test_id`) REFERENCES `test`(`id`)
-);
-
-CREATE TABLE IF NOT EXISTS `time_data`(
-    `id` int NOT NULL AUTO_INCREMENT,
-    `test_id` int NOT NULL, 
-    `timestamp` bigint NOT NULL,
-    `application_time` bigint NOT NULL,
-    `database_time` bigint NOT NULL,
-    PRIMARY KEY(`id`),
-    FOREIGN KEY(`test_id`) REFERENCES `test`(`id`)
-);
 
 SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE stock_rate;
@@ -112,6 +86,4 @@ TRUNCATE stock;
 TRUNCATE sell_offer;
 TRUNCATE buy_offer;
 TRUNCATE company;
-TRUNCATE test;
-TRUNCATE cpu_data;
 SET FOREIGN_KEY_CHECKS = 1;

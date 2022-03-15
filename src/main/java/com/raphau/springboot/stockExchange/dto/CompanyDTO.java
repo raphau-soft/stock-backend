@@ -3,6 +3,7 @@ package com.raphau.springboot.stockExchange.dto;
 public class CompanyDTO {
 
     private int id;
+    private String username;
     private String name;
     private int amount;
     private double price;
@@ -11,6 +12,14 @@ public class CompanyDTO {
     }
 
     public CompanyDTO(String name, int amount, double price) {
+        this.name = name;
+        this.amount = amount;
+        this.price = price;
+    }
+
+    public CompanyDTO(int id, String username, String name, int amount, double price) {
+        this.id = id;
+        this.username = username;
         this.name = name;
         this.amount = amount;
         this.price = price;
@@ -40,11 +49,22 @@ public class CompanyDTO {
         this.id = id;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String toString() {
         return "CompanyDTO{" +
                 "id=" + id +
+                ", username='" + username + '\'' +
                 ", name='" + name + '\'' +
+                ", amount=" + amount +
+                ", price=" + price +
                 '}';
     }
 

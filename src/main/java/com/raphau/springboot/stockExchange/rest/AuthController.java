@@ -8,6 +8,9 @@ import com.raphau.springboot.stockExchange.payload.response.JwtResponse;
 import com.raphau.springboot.stockExchange.payload.response.MessageResponse;
 import com.raphau.springboot.stockExchange.security.MyUserDetails;
 import com.raphau.springboot.stockExchange.security.jwt.JwtUtils;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,6 +30,8 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/auth")
 public class AuthController {
 
+    Logger logger = LoggerFactory.getLogger(AuthController.class);
+
     @Autowired
     AuthenticationManager authenticationManager;
 
@@ -38,12 +43,12 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
-
+    
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest){
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-        System.out.println("---------" + authentication.isAuthenticated() + "-----------");
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
 
@@ -51,6 +56,8 @@ public class AuthController {
         List<String> roles = myUserDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
+
+        logger.info("Authenticated user - " + myUserDetails.getUsername());
 
         return ResponseEntity.ok(new JwtResponse(jwt,
                 myUserDetails.getId(),
@@ -63,13 +70,11 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest signupRequest){
         if(userRepository.existsByUsername(signupRequest.getUsername())){
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Username is already taken"));
+            return ResponseEntity.ok(new MessageResponse("User already registered"));
         }
 
         User user = new User(0, signupRequest.getName(), signupRequest.getSurname(),
-                signupRequest.getUsername(), encoder.encode(signupRequest.getPassword()), new BigDecimal(40000), signupRequest.getEmail(),
+                signupRequest.getUsername(), encoder.encode(signupRequest.getPassword()), new BigDecimal(1000000), signupRequest.getEmail(),
                 "ROLE_USER");
 
         userRepository.save(user);

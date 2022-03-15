@@ -6,10 +6,40 @@ import java.util.Date;
 public class SellOfferDTO {
 
     private int id;
+    private String username;
     private int company_id;
     private BigDecimal minPrice;
     private int amount;
     private Date dateLimit;
+
+    @Override
+    public String toString() {
+        return "SellOfferDTO{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", company_id=" + company_id +
+                ", minPrice=" + minPrice +
+                ", amount=" + amount +
+                ", dateLimit=" + dateLimit +
+                '}';
+    }
+
+    public SellOfferDTO(int id, String username, int company_id, BigDecimal minPrice, int amount, Date dateLimit) {
+        this.id = id;
+        this.username = username;
+        this.company_id = company_id;
+        this.minPrice = minPrice;
+        this.amount = amount;
+        this.dateLimit = dateLimit;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public SellOfferDTO() {
     }
@@ -62,14 +92,4 @@ public class SellOfferDTO {
         this.dateLimit = dateLimit;
     }
 
-    @Override
-    public String toString() {
-        return "SellOfferDTO{" +
-                "id=" + id +
-                ", company_id=" + company_id +
-                ", maxPrice=" + minPrice +
-                ", amount=" + amount +
-                ", dateLimit=" + dateLimit +
-                '}';
-    }
 }

@@ -54,12 +54,10 @@ public class CompanyServiceImpl implements CompanyService {
         long timeApp = System.currentTimeMillis();
         TestDetailsDTO testDetailsDTO = new TestDetailsDTO();
         long timeBase = System.currentTimeMillis();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
-        Optional<User> userOpt = userService.findByUsername(userDetails.getUsername());
+        Optional<User> userOpt = userService.findByUsername(companyDTO.getUsername());
         testDetailsDTO.setDatabaseTime(System.currentTimeMillis() - timeBase);
         if (!userOpt.isPresent()){
-            throw new UserNotFoundException("User " + userDetails.getUsername() + " not found");
+            throw new UserNotFoundException("User " + companyDTO.getUsername() + " not found");
         }
         User user = userOpt.get();
 
@@ -75,6 +73,9 @@ public class CompanyServiceImpl implements CompanyService {
         testDetailsDTO.setDatabaseTime(System.currentTimeMillis() - timeBase + testDetailsDTO.getDatabaseTime());
 
         testDetailsDTO.setApplicationTime(System.currentTimeMillis() - timeApp);
+        testDetailsDTO.setTimestamp(timeApp);
+        testDetailsDTO.setEndpointUrl("add-company");
+        testDetailsDTO.setMethod("POST");
         return testDetailsDTO;
     }
 }

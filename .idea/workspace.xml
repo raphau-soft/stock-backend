@@ -29,100 +29,122 @@
   <component name="ChangeListManager">
     <list default="true" id="e28b238c-1083-4e88-844f-624a630c7d70" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$" beforeDir="false" afterPath="$PROJECT_DIR$" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f078bf77-a046-44bc-8b8a-3acf948c6c03.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f078bf77-a046-44bc-8b8a-3acf948c6c03.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/stockExchange_jar/stockExchange.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/stockExchange_jar/stockExchange.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/StockExchangeApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/StockExchangeApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dao/TestRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dao/TestRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/BuyOffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/BuyOffer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/Company.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/Company.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/CpuData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/CpuData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dao/CpuDataRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dao/TestRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dao/TimeDataRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/BuyOfferDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/BuyOfferDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/CompanyDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/CompanyDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/SellOfferDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/SellOfferDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/TestDetailsDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/TestDetailsDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/CpuData.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/SellOffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/SellOffer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/CompanyRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/CompanyRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/TestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/TradeServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/TradingThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/TradingThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/Test.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/TimeData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/BuyOfferRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/BuyOfferRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/TestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/security/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/TradingThread.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/BuyOfferServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/BuyOfferServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/CompanyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/CompanyServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/SellOfferServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/SellOfferServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/TestServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/TestServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/ints/TestService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/ints/TestService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/StockServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/StockServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/TestServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/TradeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/TradeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/ints/StockService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/ints/StockService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/ints/TestService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/ints/TradeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/ints/TradeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V1.0__init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V1.0__init.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/StockExchangeApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/StockExchangeApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/BuyOfferRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/BuyOfferRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/CompanyRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/CompanyRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/CpuDataRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/CpuDataRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/SellOfferRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/SellOfferRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/StockRateRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/StockRateRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/StockRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/StockRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/TestRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/TestRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/TransactionRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/TransactionRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/BuyOfferDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/BuyOfferDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/CompanyDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/CompanyDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/ErrorResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/ErrorResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/SellOfferDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/SellOfferDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/TestDetailsDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/TestDetailsDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/UserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/UserDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/UserUpdDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/UserUpdDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/BuyOffer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/BuyOffer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/Company.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/Company.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/CpuData.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/CpuData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/SellOffer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/SellOffer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/Stock.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/Stock.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/StockRate.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/StockRate.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/Test.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/Transaction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/Transaction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/CompanyNotFoundException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/CompanyNotFoundException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/NotEnoughMoneyException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/NotEnoughMoneyException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/RestExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/RestExceptionHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/StockAmountException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/StockAmountException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/StockNotFoundException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/StockNotFoundException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/StockRateNotFoundException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/StockRateNotFoundException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/UserNotFoundException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/UserNotFoundException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/payload/request/LoginRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/payload/request/LoginRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/payload/request/SignupRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/payload/request/SignupRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/payload/response/JwtResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/payload/response/JwtResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/payload/response/MessageResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/payload/response/MessageResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/AuthController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/AuthController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/BuyOfferRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/BuyOfferRestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/CompanyRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/CompanyRestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/SellOfferRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/SellOfferRestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/StockRateController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/StockRateController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/TestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/TestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/TransactionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/TransactionController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/UserRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/UserRestController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/AsyncConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/AsyncConfiguration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/MyUserDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/MyUserDetails.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/MyUserDetailsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/MyUserDetailsService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/SecurityConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/SecurityConfiguration.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/jwt/AuthEntryPointJwt.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/jwt/AuthEntryPointJwt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/jwt/AuthTokenFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/jwt/AuthTokenFilter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/jwt/JwtUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/jwt/JwtUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/TradeServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/TradingThread$SortBuyOffers.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/TradingThread$SortSellOffers.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/TradingThread.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/BuyOfferServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/BuyOfferServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/CompanyServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/CompanyServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/SellOfferServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/SellOfferServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/StockRateServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/StockRateServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/StockServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/StockServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/TestServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/TestServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/TransactionServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/TransactionServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/UserServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/BuyOfferService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/BuyOfferService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/CompanyService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/CompanyService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/SellOfferService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/SellOfferService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/StockRateService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/StockRateService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/StockService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/StockService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/TestService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/TestService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/TransactionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/TransactionService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/db/migration/V1.0__init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/db/migration/V1.0__init.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/raphau/springboot/stockExchange/StockExchangeApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/raphau/springboot/stockExchange/StockExchangeApplicationTests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stockExchange.iml" beforeDir="false" afterPath="$PROJECT_DIR$/stockExchange.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/StockExchangeApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/BuyOfferRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/CompanyRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/CpuDataRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/SellOfferRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/StockRateRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/StockRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/TestRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/TransactionRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dao/UserRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/BuyOfferDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/CompanyDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/ErrorResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/SellOfferDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/TestDetailsDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/UserDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/dto/UserUpdDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/BuyOffer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/Company.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/CpuData.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/SellOffer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/Stock.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/StockRate.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/Test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/Transaction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/entity/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/CompanyNotFoundException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/NotEnoughMoneyException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/RestExceptionHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/StockAmountException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/StockNotFoundException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/StockRateNotFoundException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/exception/UserNotFoundException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/payload/request/LoginRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/payload/request/SignupRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/payload/response/JwtResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/payload/response/MessageResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/AuthController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/BuyOfferRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/CompanyRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/SellOfferRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/StockRateController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/TestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/TransactionController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/rest/UserRestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/AsyncConfiguration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/MyUserDetails.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/MyUserDetailsService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/SecurityConfiguration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/jwt/AuthEntryPointJwt.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/jwt/AuthTokenFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/security/jwt/JwtUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/BuyOfferServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/CompanyServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/SellOfferServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/StockRateServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/StockServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/TestServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/TransactionServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/imps/UserServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/BuyOfferService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/CompanyService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/SellOfferService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/StockRateService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/StockService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/TestService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/TransactionService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/raphau/springboot/stockExchange/service/ints/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/db/migration/V1.0__init.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/restart.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/stockexchange-0.0.1-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/stockexchange-0.0.1-SNAPSHOT.jar.original" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/raphau/springboot/stockExchange/StockExchangeApplicationTests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../traffic-generator" beforeDir="false" afterPath="$PROJECT_DIR$/../traffic-generator" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +160,17 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="InvalidFacetManager">
+    <ignored-facets>
+      <facet id="stockExchange/invalid/JPA" />
+      <facet id="stockExchange/invalid/Spring" />
+      <facet id="stockExchange/invalid/Web" />
+    </ignored-facets>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="1baz2S8QAsOYavlZMYT39Vt2ftS" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -158,13 +190,14 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -172,22 +205,22 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\group-swarm\stockExchange\src\main\java\com\raphau\springboot\stockExchange\dto" />
       <recent name="C:\Users\Rafal\Desktop\Enżinierka\Nowyfolder\stockExchange\src\main\resources" />
       <recent name="C:\Users\Rafal\Desktop\Enżinierka\Nowyfolder\stockExchange\src\main\java\com\raphau\springboot\stockExchange\rest" />
       <recent name="C:\Users\Rafal\Desktop\Nowyfolder\stockExchange\src\main\resources" />
       <recent name="C:\Users\Rafal\Desktop\Nowyfolder\stockExchange\src\main\resources\db\migration" />
-      <recent name="C:\Users\Rafal\Desktop\Nowyfolder\stockExchange" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.raphau.springboot.stockExchange.entity" />
-      <recent name="com.raphau.springboot.stockExchange.dao" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Rafal\Desktop\Nowyfolder\stockExchange\src\main\resources\db\migration" />
       <recent name="C:\Users\Rafal\Desktop\Nowyfolder\stockExchange\src\main\resources" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.raphau.springboot.stockExchange.entity" />
+      <recent name="com.raphau.springboot.stockExchange.dao" />
+    </key>
   </component>
-  <component name="RunManager" selected="Application.Stock Exchange Application">
+  <component name="RunManager" selected="Spring Boot.StockExchangeApplication">
     <configuration name="Stock Exchange Application" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.raphau.springboot.stockExchange.StockExchangeApplication" />
       <module name="stockExchange" />
@@ -205,13 +238,21 @@
         </pattern>
       </extension>
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.raphau.springboot.stockExchange.StockExchangeApplication" />
+      <option name="VM_PARAMETERS" value="--add-opens jdk.management/com.sun.management.internal=ALL-UNNAMED" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
       <item itemvalue="Application.Stock Exchange Application" />
+      <item itemvalue="Spring Boot.StockExchangeApplication" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.StockExchangeApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -404,11 +445,17 @@
       <workItem from="1610627610085" duration="603000" />
       <workItem from="1610701402867" duration="7000" />
       <workItem from="1611219760500" duration="18000" />
+      <workItem from="1645810859558" duration="687000" />
+      <workItem from="1645880815974" duration="18805000" />
+      <workItem from="1646121224162" duration="8436000" />
+      <workItem from="1646132394301" duration="5475000" />
+      <workItem from="1646652233714" duration="12293000" />
+      <workItem from="1646726051682" duration="20064000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -420,49 +467,5 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="899" y="158" key="#com.intellij.ide.util.MemberChooser" timestamp="1606942374250">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="899" y="158" key="#com.intellij.ide.util.MemberChooser/-1920.4.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1606942374250" />
-    <state x="686" y="211" key="FileChooserDialogImpl" timestamp="1608109471496">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="-1371" y="173" key="FileChooserDialogImpl/-1920.4.1536.832/0.0.1920.1040@-1920.4.1536.832" timestamp="1603971922373" />
-    <state x="686" y="211" key="FileChooserDialogImpl/-1920.4.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1608109471496" />
-    <state width="1877" height="197" key="GridCell.Tab.0.bottom" timestamp="1610611087583">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="197" key="GridCell.Tab.0.bottom/-1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1610611087583" />
-    <state width="1493" height="146" key="GridCell.Tab.0.bottom/-1920.4.1536.832/0.0.1920.1040@-1920.4.1536.832" timestamp="1608027976015" />
-    <state width="1877" height="197" key="GridCell.Tab.0.bottom/-1920.4.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1608218973051" />
-    <state width="1877" height="197" key="GridCell.Tab.0.center" timestamp="1610611087583">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="197" key="GridCell.Tab.0.center/-1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1610611087583" />
-    <state width="1493" height="146" key="GridCell.Tab.0.center/-1920.4.1536.832/0.0.1920.1040@-1920.4.1536.832" timestamp="1608027976015" />
-    <state width="1877" height="197" key="GridCell.Tab.0.center/-1920.4.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1608218973051" />
-    <state width="1877" height="197" key="GridCell.Tab.0.left" timestamp="1610611087583">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="197" key="GridCell.Tab.0.left/-1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1610611087583" />
-    <state width="1493" height="146" key="GridCell.Tab.0.left/-1920.4.1536.832/0.0.1920.1040@-1920.4.1536.832" timestamp="1608027976015" />
-    <state width="1877" height="197" key="GridCell.Tab.0.left/-1920.4.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1608218973051" />
-    <state width="1877" height="197" key="GridCell.Tab.0.right" timestamp="1610611087583">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="197" key="GridCell.Tab.0.right/-1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1610611087583" />
-    <state width="1493" height="146" key="GridCell.Tab.0.right/-1920.4.1536.832/0.0.1920.1040@-1920.4.1536.832" timestamp="1608027976015" />
-    <state width="1877" height="197" key="GridCell.Tab.0.right/-1920.4.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1608218973051" />
-    <state width="623" height="563" key="SwitcherDM" timestamp="1601976012735">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="623" height="563" key="SwitcherDM/-1920.4.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1601976012735" />
-    <state x="261" y="0" key="new project wizard" timestamp="1607688577788">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="261" y="0" key="new project wizard/-1920.4.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1607688577788" />
   </component>
 </project>

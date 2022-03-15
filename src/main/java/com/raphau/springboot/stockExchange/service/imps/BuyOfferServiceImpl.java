@@ -94,22 +94,21 @@ public class BuyOfferServiceImpl implements BuyOfferService {
     }
 
     @Override
-    public TestDetailsDTO addOffer(BuyOfferDTO buyOfferDTO)
-            throws InterruptedException {
+    public TestDetailsDTO addOffer(BuyOfferDTO buyOfferDTO) {
         long timeApp = System.currentTimeMillis();
+        long databaseTime = 0;
         TestDetailsDTO testDetailsDTO = new TestDetailsDTO();
         Calendar c = Calendar.getInstance();
         c.setTime(buyOfferDTO.getDateLimit());
         c.add(Calendar.DATE, 1);
         buyOfferDTO.setDateLimit(c.getTime());
         buyOfferDTO.setId(0);
-        Authentication auth = SecurityContextHolder
-                .getContext().getAuthentication();
-        MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
+        long timeDb = System.currentTimeMillis();
         User user = userRepository
-                .findByUsername(userDetails.getUsername()).get();
+                .findByUsername(buyOfferDTO.getUsername()).get();
         Company company = companyRepository
                 .findById(buyOfferDTO.getCompany_id()).get();
+        databaseTime += System.currentTimeMillis() - timeDb;
         if(user.getMoney().compareTo(buyOfferDTO.getMaxPrice()
                 .multiply(BigDecimal.valueOf(buyOfferDTO.getAmount()))) < 0
                 || buyOfferDTO.getAmount() <= 0){
@@ -117,17 +116,21 @@ public class BuyOfferServiceImpl implements BuyOfferService {
                     + buyOfferDTO.getAmount() + "). You have "
                     + user.getMoney().toString() + " " +
                     "but you need " + buyOfferDTO.getMaxPrice().
-                    multiply(BigDecimal.valueOf(buyOfferDTO.getAmount()))
-                    .toString());
+                    multiply(BigDecimal.valueOf(buyOfferDTO.getAmount())));
         }
         buyOfferDTO.setId(0);
         BuyOffer buyOffer = new BuyOffer(buyOfferDTO, user, company);
         user.setMoney(user.getMoney().subtract(buyOfferDTO.getMaxPrice()
                 .multiply(BigDecimal.valueOf(buyOfferDTO.getAmount()))));
+        timeDb = System.currentTimeMillis();
         userRepository.save(user);
         buyOfferRepository.save(buyOffer);
-        testDetailsDTO.setDatabaseTime(0);
+        databaseTime += System.currentTimeMillis() - timeDb;
+        testDetailsDTO.setDatabaseTime(databaseTime);
         testDetailsDTO.setApplicationTime(System.currentTimeMillis() - timeApp);
+        testDetailsDTO.setTimestamp(timeApp);
+        testDetailsDTO.setEndpointUrl("add-company");
+        testDetailsDTO.setMethod("POST");
         return testDetailsDTO;
     }
 }

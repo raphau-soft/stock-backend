@@ -22,6 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
@@ -99,28 +100,35 @@ public class SellOfferServiceImpl implements SellOfferService {
     }
 
     @Override
-    public TestDetailsDTO addSellOffer(SellOfferDTO sellOfferDTO) throws InterruptedException {
+    @Transactional
+    public TestDetailsDTO addSellOffer(SellOfferDTO sellOfferDTO) {
         long timeApp = System.currentTimeMillis();
+        long databaseTime = 0;
         TestDetailsDTO testDetailsDTO = new TestDetailsDTO();
         Calendar c = Calendar.getInstance();
         c.setTime(sellOfferDTO.getDateLimit());
         c.add(Calendar.DATE, 1);
         sellOfferDTO.setDateLimit(c.getTime());
         sellOfferDTO.setId(0);
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        long timeDb = System.currentTimeMillis();
         Company company = companyRepository.getOne(sellOfferDTO.getCompany_id());
-        MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
-        User user = userService.findByUsername(userDetails.getUsername()).get();
+        User user = userService.findByUsername(sellOfferDTO.getUsername()).get();
         Stock stock = stockRepository.findByCompanyAndUser(company, user).get();
+        databaseTime += System.currentTimeMillis() - timeDb;
         if(sellOfferDTO.getAmount() > stock.getAmount() || sellOfferDTO.getAmount() <= 0){
             throw new StockAmountException("Wrong amount of resources - stock " + stock.getAmount() + " - sellOffer " + sellOfferDTO.getAmount());
         }
         stock.setAmount(stock.getAmount() - sellOfferDTO.getAmount());
         SellOffer sellOffer = new SellOffer(sellOfferDTO, user, stock);
+        timeDb = System.currentTimeMillis();
         stockRepository.save(stock);
         sellOfferRepository.save(sellOffer);
-        testDetailsDTO.setDatabaseTime(0);
+        databaseTime += System.currentTimeMillis() - timeDb;
+        testDetailsDTO.setDatabaseTime(databaseTime);
         testDetailsDTO.setApplicationTime(System.currentTimeMillis() - timeApp);
+        testDetailsDTO.setTimestamp(timeApp);
+        testDetailsDTO.setEndpointUrl("add-company");
+        testDetailsDTO.setMethod("POST");
         return testDetailsDTO;
     }
 
