@@ -1,5 +1,6 @@
 package com.raphau.springboot.stockExchange.rest;
 
+import com.raphau.springboot.stockExchange.dao.CompanyRepository;
 import com.raphau.springboot.stockExchange.dao.UserRepository;
 import com.raphau.springboot.stockExchange.entity.User;
 import com.raphau.springboot.stockExchange.payload.request.LoginRequest;
@@ -39,11 +40,14 @@ public class AuthController {
     UserRepository userRepository;
 
     @Autowired
+    CompanyRepository companyRepository;
+
+    @Autowired
     PasswordEncoder encoder;
 
     @Autowired
     JwtUtils jwtUtils;
-    
+
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest){
         Authentication authentication = authenticationManager.authenticate(

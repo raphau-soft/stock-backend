@@ -88,11 +88,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    Queue queueTimeData() {
-        return new Queue("time-data-response", false);
-    }
-
-    @Bean
     Queue queueUserData() {
         return new Queue("user-data-request", false);
     }

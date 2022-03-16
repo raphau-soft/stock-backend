@@ -14,7 +14,6 @@ import java.util.Optional;
 
 import com.raphau.springboot.stockExchange.dto.CpuDataDTO;
 import com.raphau.springboot.stockExchange.dto.TimeDataDTO;
-import com.raphau.springboot.stockExchange.service.Receiver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -44,20 +43,21 @@ public class TradeServiceImpl implements TradeService {
     Logger logger = LoggerFactory.getLogger(TradeServiceImpl.class);
     private final int OFFERS_NUMBER = 5;
     private long databaseTime;
-    private final OperatingSystemMXBean bean = (com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
+    private long numberOfTransactions;
+    private final OperatingSystemMXBean bean = ManagementFactory.getOperatingSystemMXBean();
 
     @Autowired
     private BuyOfferRepository buyOfferRepository;
     @Autowired
     private StockRepository stockRepository;
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private SellOfferRepository sellOfferRepository;
     @Autowired
     private TransactionRepository transactionRepository;
     @Autowired
     private StockRateRepository stockRateRepository;
-    @Autowired
-    private UserRepository userRepository;
     @Autowired
     private CompanyRepository companyRepository;
     @Autowired
@@ -100,11 +100,17 @@ public class TradeServiceImpl implements TradeService {
                 this.rabbitTemplate.convertAndSend("cpu-data-exchange", "foo.bar.#", cpuDataDTO);
             }
         }
+    }
 
+    public void clearDB() {
+        userRepository.deleteAll();
+        companyRepository.deleteAll();
+        TimeDataDTO timeDataDTO = new TimeDataDTO(0, 0, 0);
+        this.rabbitTemplate.convertAndSend("trade-response-exchange", "foo.bar.#", timeDataDTO);
     }
 
     @Override
-    public void trade() throws InterruptedException {
+    public void trade() {
         long applicationTime = System.currentTimeMillis();
         databaseTime = 0;
         List<Company> companies = companyRepository.findAll();
@@ -135,15 +141,18 @@ public class TradeServiceImpl implements TradeService {
             }
         }
         applicationTime = System.currentTimeMillis() - applicationTime;
+        if(numberOfTransactions > 0)
+            databaseTime = databaseTime / numberOfTransactions;
         TimeDataDTO timeDataDTO = new TimeDataDTO(System.currentTimeMillis(), databaseTime, applicationTime);
-        logger.info("Sending trade response tick");
-        this.rabbitTemplate.convertAndSend("trade-response-exchange", "foo.bar.#", "response tick");
+        databaseTime = 0;
+        numberOfTransactions = 0;
         addStocks();
+        logger.info("Sending trade response tick");
+        this.rabbitTemplate.convertAndSend("trade-response-exchange", "foo.bar.#", timeDataDTO);
     }
 
     private boolean startTrading(List<BuyOffer> buyOffers,
                                  List<SellOffer> sellOffers, List<Transaction> transactions) {
-        long appTime = System.currentTimeMillis();
         BuyOffer buyOffer;
         SellOffer sellOffer;
         int i = 0, j = 0;
@@ -163,6 +172,7 @@ public class TradeServiceImpl implements TradeService {
                 i++;
                 j++;
             }
+            numberOfTransactions++;
         }
         return true;
     }

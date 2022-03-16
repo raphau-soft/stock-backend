@@ -118,7 +118,14 @@ public class Receiver {
 
     @RabbitListener(queues = "trade-request")
     public void receiveTradeRequest(String tick) throws InterruptedException {
-        logger.info("Received trade tick");
-        tradeService.trade();
+        logger.info("Received trade tick: " + tick);
+        switch(tick) {
+            case "0":
+                tradeService.trade();
+                break;
+            case "1":
+                tradeService.clearDB();
+                break;
+        }
     }
 }

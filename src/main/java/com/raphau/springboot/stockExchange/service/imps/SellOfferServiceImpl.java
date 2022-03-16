@@ -127,7 +127,7 @@ public class SellOfferServiceImpl implements SellOfferService {
         testDetailsDTO.setDatabaseTime(databaseTime);
         testDetailsDTO.setApplicationTime(System.currentTimeMillis() - timeApp);
         testDetailsDTO.setTimestamp(timeApp);
-        testDetailsDTO.setEndpointUrl("add-company");
+        testDetailsDTO.setEndpointUrl("add-sell-offer");
         testDetailsDTO.setMethod("POST");
         return testDetailsDTO;
     }

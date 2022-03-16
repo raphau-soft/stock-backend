@@ -129,7 +129,7 @@ public class BuyOfferServiceImpl implements BuyOfferService {
         testDetailsDTO.setDatabaseTime(databaseTime);
         testDetailsDTO.setApplicationTime(System.currentTimeMillis() - timeApp);
         testDetailsDTO.setTimestamp(timeApp);
-        testDetailsDTO.setEndpointUrl("add-company");
+        testDetailsDTO.setEndpointUrl("add-buy-offer");
         testDetailsDTO.setMethod("POST");
         return testDetailsDTO;
     }
