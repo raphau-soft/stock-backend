@@ -7,6 +7,24 @@ public class CompanyDTO {
     private String name;
     private int amount;
     private double price;
+    private long timeDataId;
+
+    public CompanyDTO(int id, String username, String name, int amount, double price, long timeDataId) {
+        this.id = id;
+        this.username = username;
+        this.name = name;
+        this.amount = amount;
+        this.price = price;
+        this.timeDataId = timeDataId;
+    }
+
+    public long getTimeDataId() {
+        return timeDataId;
+    }
+
+    public void setTimeDataId(long timeDataId) {
+        this.timeDataId = timeDataId;
+    }
 
     public CompanyDTO() {
     }

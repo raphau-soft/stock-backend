@@ -82,7 +82,13 @@ public class StockServiceImpl implements StockService {
             Optional<StockRate> stockRate = stockRateRepository.findByCompanyAndActual(stock.getCompany(), true);
             testDetailsDTO.setDatabaseTime(System.currentTimeMillis() - timeBase + testDetailsDTO.getDatabaseTime());
             if(!stockRate.isPresent()){
-                throw new StockRateNotFoundException("Actual stock rate for " + stock.getCompany().getName() + " not found");
+                Map<String, Object> objects = new HashMap<>();
+                objects.put("username", username);
+                objects.put("stock", new ArrayList<>());
+                objects.put("stockRates", new ArrayList<>());
+                objects.put("testDetails", testDetailsDTO);
+                testDetailsDTO.setApplicationTime(System.currentTimeMillis() - timeApp);
+                return objects;
             }
             stockRates.add(stockRate.get());
         }

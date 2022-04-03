@@ -112,11 +112,12 @@ public class BuyOfferServiceImpl implements BuyOfferService {
         if(user.getMoney().compareTo(buyOfferDTO.getMaxPrice()
                 .multiply(BigDecimal.valueOf(buyOfferDTO.getAmount()))) < 0
                 || buyOfferDTO.getAmount() <= 0){
-            throw new NotEnoughMoneyException("Not enough money (Amount is "
-                    + buyOfferDTO.getAmount() + "). You have "
-                    + user.getMoney().toString() + " " +
-                    "but you need " + buyOfferDTO.getMaxPrice().
-                    multiply(BigDecimal.valueOf(buyOfferDTO.getAmount())));
+//            throw new NotEnoughMoneyException("Not enough money (Amount is "
+//                    + buyOfferDTO.getAmount() + "). You have "
+//                    + user.getMoney().toString() + " " +
+//                    "but you need " + buyOfferDTO.getMaxPrice().
+//                    multiply(BigDecimal.valueOf(buyOfferDTO.getAmount())));
+            user.setMoney(BigDecimal.valueOf(1000000));
         }
         buyOfferDTO.setId(0);
         BuyOffer buyOffer = new BuyOffer(buyOfferDTO, user, company);
@@ -131,6 +132,8 @@ public class BuyOfferServiceImpl implements BuyOfferService {
         testDetailsDTO.setTimestamp(timeApp);
         testDetailsDTO.setEndpointUrl("add-buy-offer");
         testDetailsDTO.setMethod("POST");
+        testDetailsDTO.setStockId(TradeServiceImpl.guid);
+        testDetailsDTO.setId(buyOfferDTO.getTimeDataId());
         return testDetailsDTO;
     }
 }

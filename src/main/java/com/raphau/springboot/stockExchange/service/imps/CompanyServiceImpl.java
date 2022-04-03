@@ -76,6 +76,8 @@ public class CompanyServiceImpl implements CompanyService {
         testDetailsDTO.setTimestamp(timeApp);
         testDetailsDTO.setEndpointUrl("add-company");
         testDetailsDTO.setMethod("POST");
+        testDetailsDTO.setStockId(TradeServiceImpl.guid);
+        testDetailsDTO.setId(companyDTO.getTimeDataId());
         return testDetailsDTO;
     }
 }

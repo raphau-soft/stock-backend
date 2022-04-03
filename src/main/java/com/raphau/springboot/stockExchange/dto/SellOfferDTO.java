@@ -11,6 +11,7 @@ public class SellOfferDTO {
     private BigDecimal minPrice;
     private int amount;
     private Date dateLimit;
+    private long timeDataId;
 
     @Override
     public String toString() {
@@ -22,6 +23,24 @@ public class SellOfferDTO {
                 ", amount=" + amount +
                 ", dateLimit=" + dateLimit +
                 '}';
+    }
+
+    public SellOfferDTO(int id, String username, int company_id, BigDecimal minPrice, int amount, Date dateLimit, long timeDataId) {
+        this.id = id;
+        this.username = username;
+        this.company_id = company_id;
+        this.minPrice = minPrice;
+        this.amount = amount;
+        this.dateLimit = dateLimit;
+        this.timeDataId = timeDataId;
+    }
+
+    public long getTimeDataId() {
+        return timeDataId;
+    }
+
+    public void setTimeDataId(long timeDataId) {
+        this.timeDataId = timeDataId;
     }
 
     public SellOfferDTO(int id, String username, int company_id, BigDecimal minPrice, int amount, Date dateLimit) {

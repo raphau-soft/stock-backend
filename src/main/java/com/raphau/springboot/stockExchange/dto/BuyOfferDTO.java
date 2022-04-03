@@ -11,6 +11,25 @@ public class BuyOfferDTO {
     private BigDecimal maxPrice;
     private int amount;
     private Date dateLimit;
+    private long timeDataId;
+
+    public BuyOfferDTO(int id, String username, int company_id, BigDecimal maxPrice, int amount, Date dateLimit, long timeDataId) {
+        this.id = id;
+        this.username = username;
+        this.company_id = company_id;
+        this.maxPrice = maxPrice;
+        this.amount = amount;
+        this.dateLimit = dateLimit;
+        this.timeDataId = timeDataId;
+    }
+
+    public long getTimeDataId() {
+        return timeDataId;
+    }
+
+    public void setTimeDataId(long timeDataId) {
+        this.timeDataId = timeDataId;
+    }
 
     public BuyOfferDTO() {
     }

@@ -10,13 +10,23 @@ public class CpuDataDTO {
 
     private Double cpuUsage;
 
+	private String stockId;
+
     public CpuDataDTO() {
     }
 
-	public CpuDataDTO(long timestamp, Double cpuUsage) {
-		super();
+	public CpuDataDTO(long timestamp, Double cpuUsage, String stockId) {
 		this.timestamp = timestamp;
 		this.cpuUsage = cpuUsage;
+		this.stockId = stockId;
+	}
+
+	public String getStockId() {
+		return stockId;
+	}
+
+	public void setStockId(String stockId) {
+		this.stockId = stockId;
 	}
 
 	public long getTimestamp() {

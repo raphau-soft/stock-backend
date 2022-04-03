@@ -30,13 +30,21 @@
     <list default="true" id="e28b238c-1083-4e88-844f-624a630c7d70" name="Default Changelist" comment="Stock exchange redo">
       <change beforePath="$PROJECT_DIR$" beforeDir="false" afterPath="$PROJECT_DIR$" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/security/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/Receiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/Receiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/BuyOfferDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/BuyOfferDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/CompanyDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/CompanyDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/CpuDataDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/CpuDataDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/SellOfferDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/SellOfferDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/TestDetailsDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/TestDetailsDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/TimeDataDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/TimeDataDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/BuyOfferServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/BuyOfferServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/CompanyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/CompanyServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/SellOfferServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/SellOfferServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/StockServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/StockServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/TradeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/TradeServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/ints/TradeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/ints/TradeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stockExchange.iml" beforeDir="false" afterPath="$PROJECT_DIR$/stockExchange.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../traffic-generator" beforeDir="false" afterPath="$PROJECT_DIR$/../traffic-generator" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -349,7 +357,15 @@
       <workItem from="1647360548250" duration="3253000" />
       <workItem from="1647446199048" duration="11000" />
       <workItem from="1647448146694" duration="260000" />
-      <workItem from="1647448857313" duration="2182000" />
+      <workItem from="1647448857313" duration="11236000" />
+      <workItem from="1647689545676" duration="6649000" />
+      <workItem from="1647703810347" duration="2199000" />
+      <workItem from="1647776438729" duration="5277000" />
+      <workItem from="1647816110166" duration="441000" />
+      <workItem from="1647862916634" duration="3675000" />
+      <workItem from="1648462598193" duration="5706000" />
+      <workItem from="1648909748868" duration="3214000" />
+      <workItem from="1648917475500" duration="599000" />
     </task>
     <task id="LOCAL-00001" summary="Stock exchange redo">
       <created>1647331022551</created>
@@ -379,7 +395,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647331083267</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Stock exchange redo">
+      <created>1647451724406</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1647451724406</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -91,6 +91,14 @@
 			<artifactId>spring-boot-starter-amqp</artifactId>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.welemski/gobbler -->
+		<dependency>
+			<groupId>com.welemski</groupId>
+			<artifactId>gobbler</artifactId>
+			<version>1.0.20</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>

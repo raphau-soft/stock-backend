@@ -2,11 +2,39 @@ package com.raphau.springboot.stockExchange.dto;
 
 public class TestDetailsDTO {
 
+    private long id;
     private long databaseTime;
     private long applicationTime;
     private long timestamp;
     private String endpointUrl;
     private String method;
+    private String stockId;
+
+    public TestDetailsDTO(long id, long databaseTime, long applicationTime, long timestamp, String endpointUrl, String method, String stockId) {
+        this.id = id;
+        this.databaseTime = databaseTime;
+        this.applicationTime = applicationTime;
+        this.timestamp = timestamp;
+        this.endpointUrl = endpointUrl;
+        this.method = method;
+        this.stockId = stockId;
+    }
+
+    public String getStockId() {
+        return stockId;
+    }
+
+    public void setStockId(String stockId) {
+        this.stockId = stockId;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public TestDetailsDTO() {
     }

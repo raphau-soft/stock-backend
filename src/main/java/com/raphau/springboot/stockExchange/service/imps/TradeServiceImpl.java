@@ -1,16 +1,16 @@
 package com.raphau.springboot.stockExchange.service.imps;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.OperatingSystemMXBean;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.Executors;
 
 import com.raphau.springboot.stockExchange.dto.CpuDataDTO;
 import com.raphau.springboot.stockExchange.dto.TimeDataDTO;
@@ -43,8 +43,10 @@ public class TradeServiceImpl implements TradeService {
     Logger logger = LoggerFactory.getLogger(TradeServiceImpl.class);
     private final int OFFERS_NUMBER = 5;
     private long databaseTime;
-    private long numberOfTransactions;
     private final OperatingSystemMXBean bean = ManagementFactory.getOperatingSystemMXBean();
+    private long numberOfSellOffers;
+    private long numberOfBuyOffers;
+    public static String guid = UUID.randomUUID().toString();
 
     @Autowired
     private BuyOfferRepository buyOfferRepository;
@@ -72,9 +74,7 @@ public class TradeServiceImpl implements TradeService {
                 stockRepository.delete(stock);
                 continue;
             }
-            int amount = 10;
-            logger.info("Added " + amount + " stocks to " + stock);
-            stock.setAmount(amount);
+            stock.setAmount(10 + stock.getAmount());
             stockRepository.save(stock);
         }
     }
@@ -95,7 +95,7 @@ public class TradeServiceImpl implements TradeService {
                     value = e;
                 }
 
-                CpuDataDTO cpuDataDTO = new CpuDataDTO(System.currentTimeMillis(), (Double) value);
+                CpuDataDTO cpuDataDTO = new CpuDataDTO(System.currentTimeMillis(), (Double) value, guid);
                 logger.info("Got CPU data " + cpuDataDTO);
                 this.rabbitTemplate.convertAndSend("cpu-data-exchange", "foo.bar.#", cpuDataDTO);
             }
@@ -105,7 +105,7 @@ public class TradeServiceImpl implements TradeService {
     public void clearDB() {
         userRepository.deleteAll();
         companyRepository.deleteAll();
-        TimeDataDTO timeDataDTO = new TimeDataDTO(0, 0, 0);
+        TimeDataDTO timeDataDTO = new TimeDataDTO(0, 0, 0, null);
         this.rabbitTemplate.convertAndSend("trade-response-exchange", "foo.bar.#", timeDataDTO);
     }
 
@@ -113,6 +113,8 @@ public class TradeServiceImpl implements TradeService {
     public void trade() {
         long applicationTime = System.currentTimeMillis();
         databaseTime = 0;
+        numberOfBuyOffers = 0;
+        numberOfSellOffers = 0;
         List<Company> companies = companyRepository.findAll();
         for (Company company : companies) {
             logger.info("Trading for company: " + company.getName());
@@ -141,11 +143,10 @@ public class TradeServiceImpl implements TradeService {
             }
         }
         applicationTime = System.currentTimeMillis() - applicationTime;
-        if(numberOfTransactions > 0)
-            databaseTime = databaseTime / numberOfTransactions;
-        TimeDataDTO timeDataDTO = new TimeDataDTO(System.currentTimeMillis(), databaseTime, applicationTime);
+        TimeDataDTO timeDataDTO = new TimeDataDTO(System.currentTimeMillis(), databaseTime, applicationTime, guid);
         databaseTime = 0;
-        numberOfTransactions = 0;
+        timeDataDTO.setNumberOfBuyOffers(numberOfBuyOffers);
+        timeDataDTO.setNumberOfSellOffers(numberOfSellOffers);
         addStocks();
         logger.info("Sending trade response tick");
         this.rabbitTemplate.convertAndSend("trade-response-exchange", "foo.bar.#", timeDataDTO);
@@ -172,7 +173,6 @@ public class TradeServiceImpl implements TradeService {
                 i++;
                 j++;
             }
-            numberOfTransactions++;
         }
         return true;
     }
@@ -211,6 +211,8 @@ public class TradeServiceImpl implements TradeService {
         buyOfferRepository.save(buyOffer);
         sellOfferRepository.save(sellOffer);
         databaseTime += System.currentTimeMillis() - dbTime;
+        numberOfBuyOffers++;
+        numberOfSellOffers++;
         return transaction;
     }
 
@@ -241,6 +243,7 @@ public class TradeServiceImpl implements TradeService {
         buyOfferRepository.save(buyOffer);
         sellOfferRepository.save(sellOffer);
         databaseTime += System.currentTimeMillis() - dbTime;
+        numberOfSellOffers++;
         return transaction;
     }
 
@@ -271,6 +274,7 @@ public class TradeServiceImpl implements TradeService {
         sellOfferRepository.save(sellOffer);
         buyOfferRepository.save(buyOffer);
         databaseTime += System.currentTimeMillis() - dbTime;
+        numberOfBuyOffers++;
         return transaction;
     }
 

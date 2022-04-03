@@ -1,8 +1,6 @@
 package com.raphau.springboot.stockExchange.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import javax.persistence.*;
+import java.util.Objects;
 
 public class TimeDataDTO {
 
@@ -12,50 +10,97 @@ public class TimeDataDTO {
 
     private long applicationTime;
 
+    private long numberOfSellOffers;
+
+    private long numberOfBuyOffers;
+
+    private long id;
+
+    private String stockId;
+
+    public TimeDataDTO(long timestamp, long databaseTime, long applicationTime, long numberOfSellOffers, long numberOfBuyOffers, long id) {
+        this.timestamp = timestamp;
+        this.databaseTime = databaseTime;
+        this.applicationTime = applicationTime;
+        this.numberOfSellOffers = numberOfSellOffers;
+        this.numberOfBuyOffers = numberOfBuyOffers;
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public TimeDataDTO() {
         super();
     }
 
-    public TimeDataDTO(long timestamp, long databaseTime, long applicationTime) {
+    public TimeDataDTO(long timestamp, long databaseTime, long applicationTime, String stockId) {
         this.timestamp = timestamp;
         this.databaseTime = databaseTime;
         this.applicationTime = applicationTime;
+        this.stockId = stockId;
+    }
+
+    public String getStockId() {
+        return stockId;
+    }
+
+    public void setStockId(String stockId) {
+        this.stockId = stockId;
+    }
+
+    public TimeDataDTO(long timestamp, long databaseTime, long applicationTime, long numberOfSellOffers, long numberOfBuyOffers) {
+        this.timestamp = timestamp;
+        this.databaseTime = databaseTime;
+        this.applicationTime = applicationTime;
+        this.numberOfSellOffers = numberOfSellOffers;
+        this.numberOfBuyOffers = numberOfBuyOffers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TimeDataDTO that = (TimeDataDTO) o;
+        return timestamp == that.timestamp && databaseTime == that.databaseTime && applicationTime == that.applicationTime && numberOfSellOffers == that.numberOfSellOffers && numberOfBuyOffers == that.numberOfBuyOffers;
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (applicationTime ^ (applicationTime >>> 32));
-        result = prime * result + (int) (databaseTime ^ (databaseTime >>> 32));
-        result = prime * result + (int) (timestamp ^ (timestamp >>> 32));
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        TimeDataDTO other = (TimeDataDTO) obj;
-        if (applicationTime != other.applicationTime)
-            return false;
-        if (databaseTime != other.databaseTime)
-            return false;
-        if (timestamp != other.timestamp)
-            return false;
-        return true;
+        return Objects.hash(timestamp, databaseTime, applicationTime, numberOfSellOffers, numberOfBuyOffers);
     }
 
     @Override
     public String toString() {
-        return "TimeData [timestamp=" + timestamp + ", databaseTime=" + databaseTime
-                + ", applicationTime=" + applicationTime + ", semaphoreWaitTime=" + "]";
+        return "TimeDataDTO{" +
+                "timestamp=" + timestamp +
+                ", databaseTime=" + databaseTime +
+                ", applicationTime=" + applicationTime +
+                ", numberOfSellOffers=" + numberOfSellOffers +
+                ", numberOfBuyOffers=" + numberOfBuyOffers +
+                '}';
     }
 
+    public long getNumberOfSellOffers() {
+        return numberOfSellOffers;
+    }
+
+    public void setNumberOfSellOffers(long numberOfSellOffers) {
+        this.numberOfSellOffers = numberOfSellOffers;
+    }
+
+    public long getNumberOfBuyOffers() {
+        return numberOfBuyOffers;
+    }
+
+    public void setNumberOfBuyOffers(long numberOfBuyOffers) {
+        this.numberOfBuyOffers = numberOfBuyOffers;
+    }
 
     public long getTimestamp() {
         return timestamp;
