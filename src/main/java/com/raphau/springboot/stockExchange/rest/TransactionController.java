@@ -1,6 +1,6 @@
 package com.raphau.springboot.stockExchange.rest;
 
-import com.raphau.springboot.stockExchange.service.ints.TransactionService;
+import com.raphau.springboot.stockExchange.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

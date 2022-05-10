@@ -1,4 +1,4 @@
-package com.raphau.springboot.stockExchange.service.imps;
+package com.raphau.springboot.stockExchange.service.implementation;
 
 import com.raphau.springboot.stockExchange.dao.CompanyRepository;
 import com.raphau.springboot.stockExchange.dao.StockRateRepository;
@@ -10,12 +10,9 @@ import com.raphau.springboot.stockExchange.entity.Stock;
 import com.raphau.springboot.stockExchange.entity.StockRate;
 import com.raphau.springboot.stockExchange.entity.User;
 import com.raphau.springboot.stockExchange.exception.UserNotFoundException;
-import com.raphau.springboot.stockExchange.security.MyUserDetails;
-import com.raphau.springboot.stockExchange.service.ints.CompanyService;
-import com.raphau.springboot.stockExchange.service.ints.UserService;
+import com.raphau.springboot.stockExchange.service.CompanyService;
+import com.raphau.springboot.stockExchange.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -75,7 +72,6 @@ public class CompanyServiceImpl implements CompanyService {
         testDetailsDTO.setApplicationTime(System.currentTimeMillis() - timeApp);
         testDetailsDTO.setTimestamp(timeApp);
         testDetailsDTO.setEndpointUrl("add-company");
-        testDetailsDTO.setMethod("POST");
         testDetailsDTO.setStockId(TradeServiceImpl.guid);
         testDetailsDTO.setId(companyDTO.getTimeDataId());
         return testDetailsDTO;

@@ -1,4 +1,4 @@
-package com.raphau.springboot.stockExchange.service.ints;
+package com.raphau.springboot.stockExchange.service;
 
 import java.util.Map;
 

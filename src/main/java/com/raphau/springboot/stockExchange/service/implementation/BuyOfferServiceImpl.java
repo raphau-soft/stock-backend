@@ -1,4 +1,4 @@
-package com.raphau.springboot.stockExchange.service.imps;
+package com.raphau.springboot.stockExchange.service.implementation;
 
 import com.raphau.springboot.stockExchange.dao.BuyOfferRepository;
 import com.raphau.springboot.stockExchange.dao.CompanyRepository;
@@ -8,17 +8,16 @@ import com.raphau.springboot.stockExchange.dto.TestDetailsDTO;
 import com.raphau.springboot.stockExchange.entity.BuyOffer;
 import com.raphau.springboot.stockExchange.entity.Company;
 import com.raphau.springboot.stockExchange.entity.User;
-import com.raphau.springboot.stockExchange.exception.CompanyNotFoundException;
-import com.raphau.springboot.stockExchange.exception.NotEnoughMoneyException;
 import com.raphau.springboot.stockExchange.exception.UserNotFoundException;
 import com.raphau.springboot.stockExchange.security.MyUserDetails;
-import com.raphau.springboot.stockExchange.service.ints.BuyOfferService;
-import com.raphau.springboot.stockExchange.service.ints.UserService;
+import com.raphau.springboot.stockExchange.service.BuyOfferService;
+import com.raphau.springboot.stockExchange.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -94,14 +93,12 @@ public class BuyOfferServiceImpl implements BuyOfferService {
     }
 
     @Override
+    @Transactional
     public TestDetailsDTO addOffer(BuyOfferDTO buyOfferDTO) {
         long timeApp = System.currentTimeMillis();
         long databaseTime = 0;
         TestDetailsDTO testDetailsDTO = new TestDetailsDTO();
-        Calendar c = Calendar.getInstance();
-        c.setTime(buyOfferDTO.getDateLimit());
-        c.add(Calendar.DATE, 1);
-        buyOfferDTO.setDateLimit(c.getTime());
+        buyOfferDTO.setDateLimit(new Date());
         buyOfferDTO.setId(0);
         long timeDb = System.currentTimeMillis();
         User user = userRepository
@@ -112,17 +109,10 @@ public class BuyOfferServiceImpl implements BuyOfferService {
         if(user.getMoney().compareTo(buyOfferDTO.getMaxPrice()
                 .multiply(BigDecimal.valueOf(buyOfferDTO.getAmount()))) < 0
                 || buyOfferDTO.getAmount() <= 0){
-//            throw new NotEnoughMoneyException("Not enough money (Amount is "
-//                    + buyOfferDTO.getAmount() + "). You have "
-//                    + user.getMoney().toString() + " " +
-//                    "but you need " + buyOfferDTO.getMaxPrice().
-//                    multiply(BigDecimal.valueOf(buyOfferDTO.getAmount())));
-            user.setMoney(BigDecimal.valueOf(1000000));
+            user.setMoney(BigDecimal.valueOf(100000));
         }
         buyOfferDTO.setId(0);
         BuyOffer buyOffer = new BuyOffer(buyOfferDTO, user, company);
-        user.setMoney(user.getMoney().subtract(buyOfferDTO.getMaxPrice()
-                .multiply(BigDecimal.valueOf(buyOfferDTO.getAmount()))));
         timeDb = System.currentTimeMillis();
         userRepository.save(user);
         buyOfferRepository.save(buyOffer);
@@ -130,8 +120,6 @@ public class BuyOfferServiceImpl implements BuyOfferService {
         testDetailsDTO.setDatabaseTime(databaseTime);
         testDetailsDTO.setApplicationTime(System.currentTimeMillis() - timeApp);
         testDetailsDTO.setTimestamp(timeApp);
-        testDetailsDTO.setEndpointUrl("add-buy-offer");
-        testDetailsDTO.setMethod("POST");
         testDetailsDTO.setStockId(TradeServiceImpl.guid);
         testDetailsDTO.setId(buyOfferDTO.getTimeDataId());
         return testDetailsDTO;

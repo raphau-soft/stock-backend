@@ -17,15 +17,15 @@ public class SellOffer {
     @Column(name="id")
     private int id;
 
-    @ManyToOne(targetEntity = Stock.class, fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(targetEntity = Stock.class, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="stock_id", nullable = false)
     private Stock stock;
     
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(targetEntity = User.class, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "sellOffer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "sellOffer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JsonBackReference
     private List<Transaction> transactions;
 

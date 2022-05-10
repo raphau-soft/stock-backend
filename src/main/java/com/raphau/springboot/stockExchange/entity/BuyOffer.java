@@ -18,15 +18,15 @@ public class BuyOffer implements Serializable {
     @Column(name="id")
     private int id;
 
-    @ManyToOne(targetEntity = Company.class, fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(targetEntity = Company.class, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="company_id", nullable = false)
     private Company company;
 
-    @ManyToOne(targetEntity = User.class,fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(targetEntity = User.class,fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="user_id")
     private User user;
 
-    @OneToMany(mappedBy = "buyOffer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "buyOffer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JsonBackReference
     private List<Transaction> transactions;
 

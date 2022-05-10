@@ -1,8 +1,5 @@
-package com.raphau.springboot.stockExchange.service.imps;
+package com.raphau.springboot.stockExchange.service.implementation;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.OperatingSystemMXBean;
@@ -10,14 +7,15 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.concurrent.Executors;
 
 import com.raphau.springboot.stockExchange.dto.CpuDataDTO;
 import com.raphau.springboot.stockExchange.dto.TimeDataDTO;
+import com.raphau.springboot.stockExchange.security.SchemaHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -35,18 +33,23 @@ import com.raphau.springboot.stockExchange.entity.Stock;
 import com.raphau.springboot.stockExchange.entity.StockRate;
 import com.raphau.springboot.stockExchange.entity.Transaction;
 import com.raphau.springboot.stockExchange.entity.User;
-import com.raphau.springboot.stockExchange.service.ints.TradeService;
+import com.raphau.springboot.stockExchange.service.TradeService;
+
+import javax.transaction.Transactional;
 
 @Service
 public class TradeServiceImpl implements TradeService {
 
     Logger logger = LoggerFactory.getLogger(TradeServiceImpl.class);
-    private final int OFFERS_NUMBER = 5;
     private long databaseTime;
     private final OperatingSystemMXBean bean = ManagementFactory.getOperatingSystemMXBean();
     private long numberOfSellOffers;
     private long numberOfBuyOffers;
+    private long buyOfferStayTime;
+    private long sellOfferStayTime;
+    private long noneStayTime;
     public static String guid = UUID.randomUUID().toString();
+    public static boolean finishTrading = true;
 
     @Autowired
     private BuyOfferRepository buyOfferRepository;
@@ -64,6 +67,8 @@ public class TradeServiceImpl implements TradeService {
     private CompanyRepository companyRepository;
     @Autowired
     RabbitTemplate rabbitTemplate;
+    @Autowired
+    private SchemaHandler schemaHandler;
 
 
     @Override
@@ -82,8 +87,7 @@ public class TradeServiceImpl implements TradeService {
     @Override
     @Scheduled(cron = "0 */1 * * * ?")
     public void measure() {
-        MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
-        double percentMemoryUsage = ((double) memoryMXBean.getHeapMemoryUsage().getUsed() / 1073741824) / ((double) memoryMXBean.getHeapMemoryUsage().getInit() / 1073741824);
+        double memoryUsage = ((double) Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/Runtime.getRuntime().totalMemory();
         for (Method method : bean.getClass().getDeclaredMethods()) {
             method.setAccessible(true);
             if (method.getName().startsWith("getSystem")
@@ -95,51 +99,90 @@ public class TradeServiceImpl implements TradeService {
                     value = e;
                 }
 
-                CpuDataDTO cpuDataDTO = new CpuDataDTO(System.currentTimeMillis(), (Double) value, guid);
-                logger.info("Got CPU data " + cpuDataDTO);
+                CpuDataDTO cpuDataDTO = new CpuDataDTO(System.currentTimeMillis(), (Double) value, memoryUsage, guid);
                 this.rabbitTemplate.convertAndSend("cpu-data-exchange", "foo.bar.#", cpuDataDTO);
             }
         }
     }
 
-    public void clearDB() {
-        userRepository.deleteAll();
-        companyRepository.deleteAll();
+    @Scheduled(fixedDelay = 10000)
+    public void sendTradingConfirmation() {
+        if(!finishTrading) {
+            rabbitTemplate.convertAndSend("register-response-exchange", "foo.bar.#", "1");
+        }
+    }
+
+    public void clearDB() throws Exception {
+        schemaHandler.execute();
         TimeDataDTO timeDataDTO = new TimeDataDTO(0, 0, 0, null);
         this.rabbitTemplate.convertAndSend("trade-response-exchange", "foo.bar.#", timeDataDTO);
     }
 
     @Override
+    @Async("asyncExecutor")
+    @Transactional
     public void trade() {
         long applicationTime = System.currentTimeMillis();
         databaseTime = 0;
         numberOfBuyOffers = 0;
         numberOfSellOffers = 0;
+        long getBuyOffersTime = 0;
+        long getStocksTime = 0;
+        long getSellOffersTime = 0;
+        long getUpdateStocks = 0;
+        long getTradingTime = 0;
+        buyOfferStayTime = 0;
+        sellOfferStayTime = 0;
+        noneStayTime = 0;
+        long getCompaniesTime = System.currentTimeMillis();
         List<Company> companies = companyRepository.findAll();
+        getCompaniesTime = System.currentTimeMillis() - getCompaniesTime;
         for (Company company : companies) {
             logger.info("Trading for company: " + company.getName());
             long dbTime = System.currentTimeMillis();
+
+            long temp = System.currentTimeMillis();
             List<BuyOffer> buyOffers = new ArrayList<>(buyOfferRepository
-                    .findByCompany_IdAndActual(company.getId(), true));
+                    .findTop10ByCompany_IdAndActualOrderByMaxPriceDesc(company.getId(), true));
+            getBuyOffersTime += System.currentTimeMillis() - temp;
+
+            temp = System.currentTimeMillis();
             List<Stock> stocks = stockRepository.findByCompany_Id(company.getId());
+            getStocksTime += System.currentTimeMillis() - temp;
+
             databaseTime += System.currentTimeMillis() - dbTime;
             List<SellOffer> sellOffers = new ArrayList<>();
+
+            temp = System.currentTimeMillis();
             stocks.forEach(stock -> sellOffers.addAll(stock.getSellOffers()));
             sellOffers.removeIf(sellOffer -> !sellOffer.isActual());
+            getSellOffersTime += System.currentTimeMillis() - temp;
+
             buyOffers.sort(new SortBuyOffers());
             sellOffers.sort(new SortSellOffers());
             List<Transaction> transactions = new ArrayList<>();
-            while (buyOffers.size() >= OFFERS_NUMBER
-                    && sellOffers.size() >= OFFERS_NUMBER) {
-                if (!startTrading(buyOffers.subList(0, OFFERS_NUMBER),
-                        sellOffers.subList(0, OFFERS_NUMBER), transactions)) {
+            while (buyOffers.size() > 0
+                    && sellOffers.size() > 0) {
+
+                temp = System.currentTimeMillis();
+                if (finishTrading || !startTrading(buyOffers.subList(0, buyOffers.size()),
+                        sellOffers.subList(0, sellOffers.size()), transactions)) {
                     break;
                 }
+                getTradingTime += System.currentTimeMillis() - temp;
+
                 sellOffers.removeIf(sellOffer -> !sellOffer.isActual());
-                buyOffers.removeIf(buyOffer -> !buyOffer.isActual());
+
+                temp = System.currentTimeMillis();
+                buyOffers = new ArrayList<>(buyOfferRepository
+                        .findTop10ByCompany_IdAndActualOrderByMaxPriceDesc(company.getId(), true));
+                getBuyOffersTime += System.currentTimeMillis() - temp;
+
             }
             if (!transactions.isEmpty()) {
+                temp = System.currentTimeMillis();
                 updateStockRates(company.getId(), transactions);
+                getUpdateStocks += System.currentTimeMillis() - temp;
             }
         }
         applicationTime = System.currentTimeMillis() - applicationTime;
@@ -147,29 +190,51 @@ public class TradeServiceImpl implements TradeService {
         databaseTime = 0;
         timeDataDTO.setNumberOfBuyOffers(numberOfBuyOffers);
         timeDataDTO.setNumberOfSellOffers(numberOfSellOffers);
-        addStocks();
         logger.info("Sending trade response tick");
         this.rabbitTemplate.convertAndSend("trade-response-exchange", "foo.bar.#", timeDataDTO);
+        this.finishTrading(true);
+        logger.info("XYZ1 Get companies time: " + getCompaniesTime);
+        logger.info("XYZ2 Get buy offers time: " + getBuyOffersTime);
+        logger.info("XYZ3 Get trading time: " + getTradingTime);
+        logger.info("XYZ4 Get stocks time: " + getStocksTime);
+        logger.info("XYZ5 Get sell offers time: " + getSellOffersTime);
+        logger.info("XYZ6 Get update stocks time: " + getUpdateStocks);
+        logger.info("XYZ7 Get buyOfferStay time: " + buyOfferStayTime);
+        logger.info("XYZ8 Get sellOfferStay time: " + sellOfferStayTime);
+        logger.info("XYZ9 Get noneOfferStay time: " + noneStayTime);
+
     }
 
-    private boolean startTrading(List<BuyOffer> buyOffers,
-                                 List<SellOffer> sellOffers, List<Transaction> transactions) {
+    public void finishTrading(boolean finish) {
+        finishTrading = finish;
+    }
+
+    @Transactional
+    boolean startTrading(List<BuyOffer> buyOffers,
+                         List<SellOffer> sellOffers, List<Transaction> transactions) {
         BuyOffer buyOffer;
         SellOffer sellOffer;
         int i = 0, j = 0;
+        long temp;
         while (i < buyOffers.size() && j < sellOffers.size()) {
             buyOffer = buyOffers.get(i);
             sellOffer = sellOffers.get(j);
             if (buyOffer.getMaxPrice().compareTo(sellOffer.getMinPrice()) < 0)
                 return false;
             if (buyOffer.getAmount() > sellOffer.getAmount()) {
+                temp = System.currentTimeMillis();
                 transactions.add(buyOfferStay(buyOffer, sellOffer));
+                buyOfferStayTime += System.currentTimeMillis() - temp;
                 j++;
             } else if (buyOffer.getAmount() < sellOffer.getAmount()) {
+                temp = System.currentTimeMillis();
                 transactions.add(sellOfferStay(buyOffer, sellOffer));
+                sellOfferStayTime += System.currentTimeMillis() - temp;
                 i++;
             } else {
+                temp = System.currentTimeMillis();
                 transactions.add(noneOfferStay(buyOffer, sellOffer));
+                noneStayTime += System.currentTimeMillis() - temp;
                 i++;
                 j++;
             }
@@ -177,7 +242,8 @@ public class TradeServiceImpl implements TradeService {
         return true;
     }
 
-    private Transaction noneOfferStay(BuyOffer buyOffer, SellOffer sellOffer) {
+    @Transactional
+    Transaction noneOfferStay(BuyOffer buyOffer, SellOffer sellOffer) {
         double price = (buyOffer.getMaxPrice().doubleValue()
                 + sellOffer.getMinPrice().doubleValue()) / 2;
         Transaction transaction = new Transaction(0, buyOffer,
@@ -216,7 +282,8 @@ public class TradeServiceImpl implements TradeService {
         return transaction;
     }
 
-    private Transaction buyOfferStay(BuyOffer buyOffer, SellOffer sellOffer) {
+    @Transactional
+    public Transaction buyOfferStay(BuyOffer buyOffer, SellOffer sellOffer) {
         double price = (buyOffer.getMaxPrice().doubleValue() + sellOffer.getMinPrice().doubleValue()) / 2;
         Transaction transaction = new Transaction(0, buyOffer, sellOffer, sellOffer.getAmount(), price, new Date());
         User sellOfferOwner = sellOffer.getUser();
@@ -247,7 +314,8 @@ public class TradeServiceImpl implements TradeService {
         return transaction;
     }
 
-    private Transaction sellOfferStay(BuyOffer buyOffer, SellOffer sellOffer) {
+    @Transactional
+    public Transaction sellOfferStay(BuyOffer buyOffer, SellOffer sellOffer) {
         double price = (buyOffer.getMaxPrice().doubleValue() + sellOffer.getMinPrice().doubleValue()) / 2;
         Transaction transaction = new Transaction(0, buyOffer, sellOffer, buyOffer.getAmount(), price, new Date());
         User sellOfferOwner = sellOffer.getUser();
@@ -278,7 +346,8 @@ public class TradeServiceImpl implements TradeService {
         return transaction;
     }
 
-    private void updateStockRates(int companyId, List<Transaction> transactions) {
+    @Transactional
+    void updateStockRates(int companyId, List<Transaction> transactions) {
         double price = 0;
         int amount = 0;
         for (Transaction transaction : transactions) {

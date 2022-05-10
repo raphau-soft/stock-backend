@@ -1,10 +1,10 @@
 package com.raphau.springboot.stockExchange.rest;
 
 import com.raphau.springboot.stockExchange.dto.UserUpdDTO;
-import com.raphau.springboot.stockExchange.service.ints.BuyOfferService;
-import com.raphau.springboot.stockExchange.service.ints.SellOfferService;
-import com.raphau.springboot.stockExchange.service.ints.StockService;
-import com.raphau.springboot.stockExchange.service.ints.UserService;
+import com.raphau.springboot.stockExchange.service.BuyOfferService;
+import com.raphau.springboot.stockExchange.service.SellOfferService;
+import com.raphau.springboot.stockExchange.service.StockService;
+import com.raphau.springboot.stockExchange.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

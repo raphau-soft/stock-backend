@@ -31,19 +31,43 @@
       <change beforePath="$PROJECT_DIR$" beforeDir="false" afterPath="$PROJECT_DIR$" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/BuyOfferDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/BuyOfferDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/CompanyDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/CompanyDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/StockExchangeApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/StockExchangeApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dao/BuyOfferRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dao/BuyOfferRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dao/SellOfferRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dao/SellOfferRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dao/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dao/UserRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/CpuDataDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/CpuDataDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/SellOfferDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/SellOfferDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/TestDetailsDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/TestDetailsDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/TimeDataDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto/TimeDataDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/BuyOfferServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/BuyOfferServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/CompanyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/CompanyServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/SellOfferServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/SellOfferServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/StockServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/StockServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/TradeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/TradeServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/ints/TradeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/ints/TradeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/BuyOffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/BuyOffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/SellOffer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/SellOffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/Stock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/Stock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/BuyOfferRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/BuyOfferRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/CompanyRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/CompanyRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/SellOfferRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/SellOfferRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/StockRateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/StockRateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/TransactionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/UserRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/rest/UserRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/security/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/Receiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/Receiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/BuyOfferServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/implementation/BuyOfferServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/CompanyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/implementation/CompanyServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/SellOfferServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/implementation/SellOfferServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/StockRateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/implementation/StockRateServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/StockServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/implementation/StockServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/TradeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/implementation/TradeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/TransactionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/implementation/TransactionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/imps/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/implementation/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/ints/BuyOfferService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/BuyOfferService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/ints/CompanyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/CompanyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/ints/SellOfferService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/SellOfferService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/ints/StockRateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/StockRateService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/ints/StockService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/StockService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/ints/TradeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/TradeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/ints/TransactionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/TransactionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/ints/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V1.0__init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V1.0__init.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stockExchange.iml" beforeDir="false" afterPath="$PROJECT_DIR$/stockExchange.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../traffic-generator" beforeDir="false" afterPath="$PROJECT_DIR$/../traffic-generator" afterDir="false" />
     </list>
@@ -91,7 +115,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/dto" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/templates" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -106,11 +130,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\group-swarm\stockExchange\src\main\resources\templates" />
+      <recent name="D:\group-swarm\stockExchange\src\main\resources" />
+      <recent name="D:\group-swarm\stockExchange\src\main\java\com\raphau\springboot\stockExchange\security" />
       <recent name="D:\group-swarm\stockExchange\src\main\java\com\raphau\springboot\stockExchange\dto" />
       <recent name="C:\Users\Rafal\Desktop\Enżinierka\Nowyfolder\stockExchange\src\main\resources" />
-      <recent name="C:\Users\Rafal\Desktop\Enżinierka\Nowyfolder\stockExchange\src\main\java\com\raphau\springboot\stockExchange\rest" />
-      <recent name="C:\Users\Rafal\Desktop\Nowyfolder\stockExchange\src\main\resources" />
-      <recent name="C:\Users\Rafal\Desktop\Nowyfolder\stockExchange\src\main\resources\db\migration" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Rafal\Desktop\Nowyfolder\stockExchange\src\main\resources\db\migration" />
@@ -366,6 +390,40 @@
       <workItem from="1648462598193" duration="5706000" />
       <workItem from="1648909748868" duration="3214000" />
       <workItem from="1648917475500" duration="599000" />
+      <workItem from="1648992639484" duration="63000" />
+      <workItem from="1649022882828" duration="1066000" />
+      <workItem from="1649024515964" duration="2550000" />
+      <workItem from="1649068182049" duration="2709000" />
+      <workItem from="1649106292726" duration="427000" />
+      <workItem from="1649154071378" duration="3757000" />
+      <workItem from="1649163487483" duration="2544000" />
+      <workItem from="1649188574090" duration="433000" />
+      <workItem from="1649189149513" duration="4000" />
+      <workItem from="1649230830436" duration="1174000" />
+      <workItem from="1649438801593" duration="1483000" />
+      <workItem from="1649516346036" duration="7445000" />
+      <workItem from="1649592299323" duration="324000" />
+      <workItem from="1649605989200" duration="1092000" />
+      <workItem from="1649614443196" duration="1186000" />
+      <workItem from="1649672726139" duration="8046000" />
+      <workItem from="1649771971436" duration="18000" />
+      <workItem from="1649772380230" duration="15000" />
+      <workItem from="1649951587979" duration="142000" />
+      <workItem from="1649952574646" duration="3101000" />
+      <workItem from="1649955877761" duration="6000" />
+      <workItem from="1650047964657" duration="4082000" />
+      <workItem from="1650115248023" duration="1533000" />
+      <workItem from="1650228354716" duration="805000" />
+      <workItem from="1650284175141" duration="291000" />
+      <workItem from="1650352146171" duration="9000" />
+      <workItem from="1650353490367" duration="1832000" />
+      <workItem from="1652037250335" duration="2584000" />
+      <workItem from="1652042529134" duration="2525000" />
+      <workItem from="1652091427083" duration="793000" />
+      <workItem from="1652119210709" duration="1757000" />
+      <workItem from="1652172055567" duration="16450000" />
+      <workItem from="1652205413453" duration="11000" />
+      <workItem from="1652205431304" duration="2465000" />
     </task>
     <task id="LOCAL-00001" summary="Stock exchange redo">
       <created>1647331022551</created>
@@ -402,7 +460,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647451724406</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Stock exchange redo">
+      <created>1648992665167</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1648992665167</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -425,5 +490,16 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Stock exchange redo" />
     <option name="LAST_COMMIT_MESSAGE" value="Stock exchange redo" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/raphau/springboot/stockExchange/service/implementation/StockServiceImpl.java</url>
+          <line>77</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

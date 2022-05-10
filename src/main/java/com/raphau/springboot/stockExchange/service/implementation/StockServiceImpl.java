@@ -1,4 +1,4 @@
-package com.raphau.springboot.stockExchange.service.imps;
+package com.raphau.springboot.stockExchange.service.implementation;
 
 import com.raphau.springboot.stockExchange.dao.StockRateRepository;
 import com.raphau.springboot.stockExchange.dto.TestDetailsDTO;
@@ -8,8 +8,8 @@ import com.raphau.springboot.stockExchange.entity.User;
 import com.raphau.springboot.stockExchange.exception.StockRateNotFoundException;
 import com.raphau.springboot.stockExchange.exception.UserNotFoundException;
 import com.raphau.springboot.stockExchange.security.MyUserDetails;
-import com.raphau.springboot.stockExchange.service.ints.StockService;
-import com.raphau.springboot.stockExchange.service.ints.UserService;
+import com.raphau.springboot.stockExchange.service.StockService;
+import com.raphau.springboot.stockExchange.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

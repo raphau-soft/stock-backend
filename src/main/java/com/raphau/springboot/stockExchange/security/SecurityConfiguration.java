@@ -6,7 +6,9 @@ import com.raphau.springboot.stockExchange.security.jwt.AuthTokenFilter;
 
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
@@ -139,6 +141,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return rabbitTemplate;
     }
 
+    @Bean
+    public ConnectionFactory connectionFactory() {
+        return new CachingConnectionFactory("rabbitmq");
+    }
+
+//    @Bean
+//    public ConnectionFactory connectionFactory() {
+//        return new CachingConnectionFactory("localhost");
+//    }
+
+    @Bean
+    public RabbitAdmin amqpAdmin() {
+        return new RabbitAdmin(connectionFactory());
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
@@ -151,7 +168,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/swagger-resources/**",
                         "/configuration/**",
                         "/swagger-ui.html",
-                        "/webjars/**").permitAll()
+                        "/webjars/**",
+                        "/index",
+                        "/user/**").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }

@@ -3,23 +3,22 @@ package com.raphau.springboot.stockExchange.service;
 import com.raphau.springboot.stockExchange.dao.CompanyRepository;
 import com.raphau.springboot.stockExchange.dao.StockRateRepository;
 import com.raphau.springboot.stockExchange.dao.UserRepository;
-import com.raphau.springboot.stockExchange.dto.BuyOfferDTO;
-import com.raphau.springboot.stockExchange.dto.CompanyDTO;
-import com.raphau.springboot.stockExchange.dto.SellOfferDTO;
-import com.raphau.springboot.stockExchange.dto.TestDetailsDTO;
+import com.raphau.springboot.stockExchange.dto.*;
 import com.raphau.springboot.stockExchange.entity.Company;
 import com.raphau.springboot.stockExchange.entity.StockRate;
 import com.raphau.springboot.stockExchange.entity.User;
-import com.raphau.springboot.stockExchange.service.imps.TradeServiceImpl;
-import com.raphau.springboot.stockExchange.service.ints.*;
+import com.raphau.springboot.stockExchange.service.implementation.TradeServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.QueueInformation;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -64,67 +63,130 @@ public class Receiver {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
+    @Autowired
+    private RabbitAdmin admin;
+
     @RabbitListener(queues = "buy-offer-request")
     public void receiveBuyOfferMessage(BuyOfferDTO buyOfferDTO) throws InterruptedException {
-        logger.info("Buy offer received: " + buyOfferDTO.toString());
+        logger.debug("Buy offer received: " + buyOfferDTO.toString());
         TestDetailsDTO testDetailsDTO = buyOfferService.addOffer(buyOfferDTO);
+        QueueInformation information = admin.getQueueInfo("test-details-response");
+        assert information != null;
+        testDetailsDTO.setQueueSizeBack(information.getMessageCount());
         rabbitTemplate.convertAndSend("test-details-exchange", "foo.bar.#", testDetailsDTO);
     }
 
     @RabbitListener(queues = "sell-offer-request")
     public void receiveSellOfferMessage(SellOfferDTO sellOfferDTO) throws InterruptedException {
-        logger.info("Sell offer received: " + sellOfferDTO.toString());
+        logger.debug("Sell offer received: " + sellOfferDTO.toString());
         TestDetailsDTO testDetailsDTO = sellOfferService.addSellOffer(sellOfferDTO);
+        QueueInformation information = admin.getQueueInfo("test-details-response");
+        assert information != null;
+        testDetailsDTO.setQueueSizeBack(information.getMessageCount());
         rabbitTemplate.convertAndSend("test-details-exchange", "foo.bar.#", testDetailsDTO);
     }
 
     @RabbitListener(queues = "register-request")
-    public void receiveRegisterMessage(String username) {
-        logger.info("User register: " + username);
+    public void receiveRegisterMessage(GetDataDTO dataDTO) {
+        long timeApp = System.currentTimeMillis();
+        long appTime = System.currentTimeMillis();
+        TestDetailsDTO testDetailsDTO = new TestDetailsDTO();
         User user = new User(0, "John", "White",
-                username, encoder.encode("password"), new BigDecimal(1000000), "abc@gma.com",
+                dataDTO.getUsername(), encoder.encode("password"), new BigDecimal(100000), "abc@gma.com",
                 "ROLE_USER");
+        long dbTime = System.currentTimeMillis();
         userRepository.save(user);
-        rabbitTemplate.convertAndSend("register-response-exchange", "foo.bar.#", "1");
+        dbTime = System.currentTimeMillis() - dbTime;
+        testDetailsDTO.setStockId(TradeServiceImpl.guid);
+        testDetailsDTO.setTimestamp(timeApp);
+        testDetailsDTO.setDatabaseTime(dbTime);
+        testDetailsDTO.setId(dataDTO.getTimeDataId());
+        QueueInformation information = admin.getQueueInfo("test-details-response");
+        assert information != null;
+        testDetailsDTO.setQueueSizeBack(information.getMessageCount());
+        appTime = System.currentTimeMillis() - appTime;
+        testDetailsDTO.setApplicationTime(appTime);
+        rabbitTemplate.convertAndSend("test-details-exchange", "foo.bar.#", testDetailsDTO);
+        rabbitTemplate.convertAndSend("register-response-exchange", "foo.bar.#", "0");
     }
 
     @RabbitListener(queues = "company-request")
     public void receiveCompanyMessage(CompanyDTO companyDTO) {
-        logger.info("Company received: " + companyDTO.toString());
         TestDetailsDTO testDetailsDTO = companyService.addCompany(companyDTO);
+        QueueInformation information = admin.getQueueInfo("test-details-response");
+        assert information != null;
+        testDetailsDTO.setQueueSizeBack(information.getMessageCount());
         rabbitTemplate.convertAndSend("test-details-exchange", "foo.bar.#", testDetailsDTO);
     }
 
     @RabbitListener(queues = "stock-data-request")
-    public void receiveStockRequest(String username) {
-        logger.info("Stock request received: " + username);
-        Map<String, Object> objects =  stockService.findResources(username);
+    @Transactional
+    public void receiveStockRequest(GetDataDTO dataDTO) {
+        long timeApp = System.currentTimeMillis();
+        long appTime = System.currentTimeMillis();
+        TestDetailsDTO testDetailsDTO = new TestDetailsDTO();
+        long dbTime = System.currentTimeMillis();
+        Map<String, Object> objects =  stockService.findResources(dataDTO.getUsername());
+        dbTime = System.currentTimeMillis() - dbTime;
+        testDetailsDTO.setStockId(TradeServiceImpl.guid);
+        testDetailsDTO.setTimestamp(timeApp);
+        testDetailsDTO.setDatabaseTime(dbTime);
+        QueueInformation information = admin.getQueueInfo("test-details-response");
+        assert information != null;
+        testDetailsDTO.setQueueSizeBack(information.getMessageCount());
+        appTime = System.currentTimeMillis() - appTime;
+        testDetailsDTO.setId(dataDTO.getTimeDataId());
+        testDetailsDTO.setApplicationTime(appTime);
         rabbitTemplate.convertAndSend("stock-data-response-exchange", "foo.bar.#", objects);
+        rabbitTemplate.convertAndSend("test-details-exchange", "foo.bar.#", testDetailsDTO);
     }
 
     @RabbitListener(queues = "user-data-request")
-    public void receiveUserRequest(String username) {
-        logger.info("User received: " + username);
+    public void receiveUserRequest(GetDataDTO dataDTO) {
+        long timeApp = System.currentTimeMillis();
+        long appTime = System.currentTimeMillis();
+        TestDetailsDTO testDetailsDTO = new TestDetailsDTO();
         Map<String, Object> objects = new HashMap<>();
-        Optional<User> user = userService.findByUsername(username);
+        long dbTime = System.currentTimeMillis();
+        Optional<User> user = userService.findByUsername(dataDTO.getUsername());
         List<Company> companyList = companyRepository.findAll();
         List<StockRate> stockRates = stockRateRepository.findByActual(true);
-        objects.put("username", username);
+        dbTime = System.currentTimeMillis() - dbTime;
+        objects.put("username", dataDTO.getUsername());
         objects.put("user", user.get());
         objects.put("companies", companyList);
         objects.put("stockRates", stockRates);
+        testDetailsDTO.setStockId(TradeServiceImpl.guid);
+        testDetailsDTO.setTimestamp(timeApp);
+        testDetailsDTO.setDatabaseTime(dbTime);
+        QueueInformation information = admin.getQueueInfo("test-details-response");
+        assert information != null;
+        testDetailsDTO.setQueueSizeBack(information.getMessageCount());
+        appTime = System.currentTimeMillis() - appTime;
+        testDetailsDTO.setApplicationTime(appTime);
+        testDetailsDTO.setId(dataDTO.getTimeDataId());
         rabbitTemplate.convertAndSend("user-data-response-exchange", "foo.bar.#", objects);
+        rabbitTemplate.convertAndSend("test-details-exchange", "foo.bar.#", testDetailsDTO);
     }
 
     @RabbitListener(queues = "trade-request")
-    public void receiveTradeRequest(String tick) throws InterruptedException {
+    public void receiveTradeRequest(String tick) throws Exception {
         logger.info("Received trade tick: " + tick);
         switch(tick) {
             case "0":
+                logger.info("Trading started...");
+                tradeService.finishTrading(false);
                 tradeService.trade();
                 break;
             case "1":
+                logger.info("Clearing database...");
                 tradeService.clearDB();
+                break;
+            case "2":
+                if(!TradeServiceImpl.finishTrading) {
+                    logger.info("Finish trading...");
+                    tradeService.finishTrading(true);
+                }
                 break;
         }
     }

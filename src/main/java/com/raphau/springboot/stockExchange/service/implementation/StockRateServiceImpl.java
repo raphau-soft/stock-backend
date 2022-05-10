@@ -1,9 +1,9 @@
-package com.raphau.springboot.stockExchange.service.imps;
+package com.raphau.springboot.stockExchange.service.implementation;
 
 import com.raphau.springboot.stockExchange.dao.StockRateRepository;
 import com.raphau.springboot.stockExchange.dto.TestDetailsDTO;
 import com.raphau.springboot.stockExchange.entity.StockRate;
-import com.raphau.springboot.stockExchange.service.ints.StockRateService;
+import com.raphau.springboot.stockExchange.service.StockRateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

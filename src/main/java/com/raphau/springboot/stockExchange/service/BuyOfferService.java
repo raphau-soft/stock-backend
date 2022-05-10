@@ -1,4 +1,4 @@
-package com.raphau.springboot.stockExchange.service.ints;
+package com.raphau.springboot.stockExchange.service;
 
 import com.raphau.springboot.stockExchange.dto.BuyOfferDTO;
 import com.raphau.springboot.stockExchange.dto.TestDetailsDTO;

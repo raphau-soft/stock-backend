@@ -6,6 +6,8 @@ CREATE TABLE IF NOT EXISTS `company`(
     PRIMARY KEY(`id`)
 );
 
+CREATE INDEX COMPANY_INDEX ON company(id);
+
 CREATE TABLE IF NOT EXISTS `user`(
     `id` int NOT NULL AUTO_INCREMENT,
     `name` varchar(45) NOT NULL,
@@ -18,6 +20,8 @@ CREATE TABLE IF NOT EXISTS `user`(
     PRIMARY KEY(`id`)
 );
 
+CREATE INDEX USER_INDEX ON user(id, username, email);
+
 CREATE TABLE IF NOT EXISTS `stock`(
     `id` int NOT NULL AUTO_INCREMENT,
     `company_id` int NOT NULL,
@@ -27,6 +31,8 @@ CREATE TABLE IF NOT EXISTS `stock`(
     FOREIGN KEY(`company_id`) REFERENCES `company`(`id`),
     FOREIGN KEY(`user_id`) REFERENCES `user`(`id`)
 );
+
+CREATE INDEX STOCK_INDEX ON stock(id, company_id, user_id);
 
 CREATE TABLE IF NOT EXISTS `buy_offer`(
     `id` int NOT NULL AUTO_INCREMENT,
@@ -42,6 +48,8 @@ CREATE TABLE IF NOT EXISTS `buy_offer`(
     FOREIGN KEY(`user_id`) REFERENCES `user`(`id`)
 );
 
+CREATE INDEX BUY_INDEX ON buy_offer(id, company_id, max_price, actual);
+
 CREATE TABLE IF NOT EXISTS `sell_offer`(
     `id` int NOT NULL AUTO_INCREMENT,
     `user_id` int NOT NULL,
@@ -56,6 +64,8 @@ CREATE TABLE IF NOT EXISTS `sell_offer`(
     FOREIGN KEY(`stock_id`) REFERENCES `stock`(`id`)
 );
 
+CREATE INDEX SELL_INDEX ON sell_offer(id);
+
 CREATE TABLE IF NOT EXISTS `transaction`(
     `id` int NOT NULL AUTO_INCREMENT,
     `buy_offer_id` int NOT NULL,
@@ -68,6 +78,8 @@ CREATE TABLE IF NOT EXISTS `transaction`(
     FOREIGN KEY(`sell_offer_id`) REFERENCES `sell_offer`(`id`)
 );
 
+CREATE INDEX TRANSACTION_INDEX ON transaction(id);
+
 CREATE TABLE IF NOT EXISTS `stock_rate`(
     `id` int NOT NULL AUTO_INCREMENT,
     `company_id` int NOT NULL,
@@ -77,6 +89,7 @@ CREATE TABLE IF NOT EXISTS `stock_rate`(
     PRIMARY KEY(`id`)
 );
 
+CREATE INDEX STOCK_RATE_INDEX ON stock_rate(id, company_id, actual);
 
 SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE stock_rate;

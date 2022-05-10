@@ -1,22 +1,19 @@
-package com.raphau.springboot.stockExchange.service.imps;
+package com.raphau.springboot.stockExchange.service.implementation;
 
 import com.raphau.springboot.stockExchange.dao.CompanyRepository;
 import com.raphau.springboot.stockExchange.dao.SellOfferRepository;
 import com.raphau.springboot.stockExchange.dao.StockRepository;
-import com.raphau.springboot.stockExchange.dao.UserRepository;
 import com.raphau.springboot.stockExchange.dto.SellOfferDTO;
 import com.raphau.springboot.stockExchange.dto.TestDetailsDTO;
 import com.raphau.springboot.stockExchange.entity.Company;
 import com.raphau.springboot.stockExchange.entity.SellOffer;
 import com.raphau.springboot.stockExchange.entity.Stock;
 import com.raphau.springboot.stockExchange.entity.User;
-import com.raphau.springboot.stockExchange.exception.CompanyNotFoundException;
 import com.raphau.springboot.stockExchange.exception.StockAmountException;
-import com.raphau.springboot.stockExchange.exception.StockNotFoundException;
 import com.raphau.springboot.stockExchange.exception.UserNotFoundException;
 import com.raphau.springboot.stockExchange.security.MyUserDetails;
-import com.raphau.springboot.stockExchange.service.ints.SellOfferService;
-import com.raphau.springboot.stockExchange.service.ints.UserService;
+import com.raphau.springboot.stockExchange.service.SellOfferService;
+import com.raphau.springboot.stockExchange.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -105,10 +102,7 @@ public class SellOfferServiceImpl implements SellOfferService {
         long timeApp = System.currentTimeMillis();
         long databaseTime = 0;
         TestDetailsDTO testDetailsDTO = new TestDetailsDTO();
-        Calendar c = Calendar.getInstance();
-        c.setTime(sellOfferDTO.getDateLimit());
-        c.add(Calendar.DATE, 1);
-        sellOfferDTO.setDateLimit(c.getTime());
+        sellOfferDTO.setDateLimit(new Date());
         sellOfferDTO.setId(0);
         long timeDb = System.currentTimeMillis();
         Company company = companyRepository.getOne(sellOfferDTO.getCompany_id());
@@ -116,9 +110,10 @@ public class SellOfferServiceImpl implements SellOfferService {
         Stock stock = stockRepository.findByCompanyAndUser(company, user).get();
         databaseTime += System.currentTimeMillis() - timeDb;
         if(sellOfferDTO.getAmount() > stock.getAmount() || sellOfferDTO.getAmount() <= 0){
-            throw new StockAmountException("Wrong amount of resources - stock " + stock.getAmount() + " - sellOffer " + sellOfferDTO.getAmount());
+            stock.setAmount(0);
+        } else {
+            stock.setAmount(stock.getAmount() - sellOfferDTO.getAmount());
         }
-        stock.setAmount(stock.getAmount() - sellOfferDTO.getAmount());
         SellOffer sellOffer = new SellOffer(sellOfferDTO, user, stock);
         timeDb = System.currentTimeMillis();
         stockRepository.save(stock);
@@ -127,8 +122,6 @@ public class SellOfferServiceImpl implements SellOfferService {
         testDetailsDTO.setDatabaseTime(databaseTime);
         testDetailsDTO.setApplicationTime(System.currentTimeMillis() - timeApp);
         testDetailsDTO.setTimestamp(timeApp);
-        testDetailsDTO.setEndpointUrl("add-sell-offer");
-        testDetailsDTO.setMethod("POST");
         testDetailsDTO.setStockId(TradeServiceImpl.guid);
         testDetailsDTO.setId(sellOfferDTO.getTimeDataId());
         return testDetailsDTO;
