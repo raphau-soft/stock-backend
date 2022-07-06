@@ -9,6 +9,6 @@ public interface BuyOfferService {
 
     Map<String, Object> getUserBuyOffers();
     TestDetailsDTO deleteBuyOffer(int theId);
-    TestDetailsDTO addOffer(BuyOfferDTO buyOfferDTO) throws InterruptedException;
+    TestDetailsDTO addOffer(BuyOfferDTO buyOfferDTO);
 
 }

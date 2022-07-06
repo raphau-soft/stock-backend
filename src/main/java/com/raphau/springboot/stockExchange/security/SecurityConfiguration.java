@@ -25,6 +25,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.client.RestTemplate;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableWebSecurity
@@ -143,7 +144,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public ConnectionFactory connectionFactory() {
-        return new CachingConnectionFactory("rabbitmq");
+        CachingConnectionFactory cachingConnectionFactory = new CachingConnectionFactory("rabbitmq");
+        cachingConnectionFactory.setChannelCacheSize(1000000);
+        return cachingConnectionFactory;
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 
 //    @Bean

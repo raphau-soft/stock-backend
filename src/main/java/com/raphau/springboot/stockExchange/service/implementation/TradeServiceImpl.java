@@ -209,16 +209,12 @@ public class TradeServiceImpl implements TradeService {
         finishTrading = finish;
     }
 
-    @Transactional
     boolean startTrading(List<BuyOffer> buyOffers,
                          List<SellOffer> sellOffers, List<Transaction> transactions) {
-        BuyOffer buyOffer;
-        SellOffer sellOffer;
-        int i = 0, j = 0;
-        long temp;
+        int i = 0, j = 0; long temp;
         while (i < buyOffers.size() && j < sellOffers.size()) {
-            buyOffer = buyOffers.get(i);
-            sellOffer = sellOffers.get(j);
+            BuyOffer buyOffer = buyOffers.get(i);
+            SellOffer sellOffer = sellOffers.get(j);
             if (buyOffer.getMaxPrice().compareTo(sellOffer.getMinPrice()) < 0)
                 return false;
             if (buyOffer.getAmount() > sellOffer.getAmount()) {
@@ -227,7 +223,7 @@ public class TradeServiceImpl implements TradeService {
                 buyOfferStayTime += System.currentTimeMillis() - temp;
                 j++;
             } else if (buyOffer.getAmount() < sellOffer.getAmount()) {
-                temp = System.currentTimeMillis();
+                 temp = System.currentTimeMillis();
                 transactions.add(sellOfferStay(buyOffer, sellOffer));
                 sellOfferStayTime += System.currentTimeMillis() - temp;
                 i++;
@@ -235,14 +231,12 @@ public class TradeServiceImpl implements TradeService {
                 temp = System.currentTimeMillis();
                 transactions.add(noneOfferStay(buyOffer, sellOffer));
                 noneStayTime += System.currentTimeMillis() - temp;
-                i++;
-                j++;
+                i++; j++;
             }
         }
         return true;
     }
 
-    @Transactional
     Transaction noneOfferStay(BuyOffer buyOffer, SellOffer sellOffer) {
         double price = (buyOffer.getMaxPrice().doubleValue()
                 + sellOffer.getMinPrice().doubleValue()) / 2;
@@ -282,7 +276,6 @@ public class TradeServiceImpl implements TradeService {
         return transaction;
     }
 
-    @Transactional
     public Transaction buyOfferStay(BuyOffer buyOffer, SellOffer sellOffer) {
         double price = (buyOffer.getMaxPrice().doubleValue() + sellOffer.getMinPrice().doubleValue()) / 2;
         Transaction transaction = new Transaction(0, buyOffer, sellOffer, sellOffer.getAmount(), price, new Date());
@@ -314,7 +307,6 @@ public class TradeServiceImpl implements TradeService {
         return transaction;
     }
 
-    @Transactional
     public Transaction sellOfferStay(BuyOffer buyOffer, SellOffer sellOffer) {
         double price = (buyOffer.getMaxPrice().doubleValue() + sellOffer.getMinPrice().doubleValue()) / 2;
         Transaction transaction = new Transaction(0, buyOffer, sellOffer, buyOffer.getAmount(), price, new Date());
@@ -346,7 +338,6 @@ public class TradeServiceImpl implements TradeService {
         return transaction;
     }
 
-    @Transactional
     void updateStockRates(int companyId, List<Transaction> transactions) {
         double price = 0;
         int amount = 0;

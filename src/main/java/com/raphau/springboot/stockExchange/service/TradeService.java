@@ -9,5 +9,6 @@ public interface TradeService {
 	public void measure() throws IOException, InterruptedException;
 	public void addStocks();
 	public void finishTrading(boolean finish);
-	
+	public void sendTradingConfirmation();
+
 }

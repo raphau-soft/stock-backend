@@ -16,7 +16,10 @@ public class SchemaHandler {
     private SpringContextGetter springContextGetter;
 
     public void execute() throws Exception {
+        System.out.println("1");
         Resource resource = springContextGetter.getApplicationContext().getResource(SCHEMA_SQL);
+        System.out.println("2");
         ScriptUtils.executeSqlScript(datasource.getConnection(), resource);
+        System.out.println("3");
     }
 }
