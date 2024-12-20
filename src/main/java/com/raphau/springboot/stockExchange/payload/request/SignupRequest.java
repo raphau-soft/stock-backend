@@ -1,17 +1,10 @@
 package com.raphau.springboot.stockExchange.payload.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class SignupRequest {
-    @JsonProperty
     private String name;
-    @JsonProperty
     private String surname;
-    @JsonProperty
     private String username;
-    @JsonProperty
     private String email;
-    @JsonProperty
     private String password;
 
     public SignupRequest(String name, String surname, String username, String email, String password) {

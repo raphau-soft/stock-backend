@@ -17,7 +17,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -93,7 +92,6 @@ public class BuyOfferServiceImpl implements BuyOfferService {
     }
 
     @Override
-    @Transactional
     public TestDetailsDTO addOffer(BuyOfferDTO buyOfferDTO) {
         long timeApp = System.currentTimeMillis();
         long databaseTime = 0;

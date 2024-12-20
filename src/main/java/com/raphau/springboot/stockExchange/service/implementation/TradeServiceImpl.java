@@ -1,7 +1,6 @@
 package com.raphau.springboot.stockExchange.service.implementation;
 
 import java.lang.management.ManagementFactory;
-import java.lang.management.MemoryMXBean;
 import java.lang.management.OperatingSystemMXBean;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -10,7 +9,6 @@ import java.util.*;
 
 import com.raphau.springboot.stockExchange.dto.CpuDataDTO;
 import com.raphau.springboot.stockExchange.dto.TimeDataDTO;
-import com.raphau.springboot.stockExchange.security.SchemaHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -35,7 +33,6 @@ import com.raphau.springboot.stockExchange.entity.Transaction;
 import com.raphau.springboot.stockExchange.entity.User;
 import com.raphau.springboot.stockExchange.service.TradeService;
 
-import javax.transaction.Transactional;
 
 @Service
 public class TradeServiceImpl implements TradeService {
@@ -67,9 +64,6 @@ public class TradeServiceImpl implements TradeService {
     private CompanyRepository companyRepository;
     @Autowired
     RabbitTemplate rabbitTemplate;
-    @Autowired
-    private SchemaHandler schemaHandler;
-
 
     @Override
     public void addStocks() {
@@ -112,15 +106,8 @@ public class TradeServiceImpl implements TradeService {
         }
     }
 
-    public void clearDB() throws Exception {
-        schemaHandler.execute();
-        TimeDataDTO timeDataDTO = new TimeDataDTO(0, 0, 0, null);
-        this.rabbitTemplate.convertAndSend("trade-response-exchange", "foo.bar.#", timeDataDTO);
-    }
-
     @Override
     @Async("asyncExecutor")
-    @Transactional
     public void trade() {
         long applicationTime = System.currentTimeMillis();
         databaseTime = 0;

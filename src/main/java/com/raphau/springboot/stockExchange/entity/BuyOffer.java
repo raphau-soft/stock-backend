@@ -1,9 +1,8 @@
 package com.raphau.springboot.stockExchange.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.raphau.springboot.stockExchange.dto.BuyOfferDTO;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -27,7 +26,6 @@ public class BuyOffer implements Serializable {
     private User user;
 
     @OneToMany(mappedBy = "buyOffer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JsonBackReference
     private List<Transaction> transactions;
 
     @Column(name="max_price")

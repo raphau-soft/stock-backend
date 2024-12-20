@@ -26,7 +26,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins="*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -49,7 +48,7 @@ public class AuthController {
     JwtUtils jwtUtils;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest){
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -63,8 +62,8 @@ public class AuthController {
 
         logger.info("Authenticated user - " + myUserDetails.getUsername());
 
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                myUserDetails.getId(),
+        return ResponseEntity.ok(new JwtResponse(myUserDetails.getId(),
+                jwt,
                 myUserDetails.getUsername(),
                 myUserDetails.getEmail(),
                 roles
@@ -72,8 +71,8 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestBody SignupRequest signupRequest){
-        if(userRepository.existsByUsername(signupRequest.getUsername())){
+    public ResponseEntity<?> registerUser(@RequestBody SignupRequest signupRequest) {
+        if (userRepository.existsByUsername(signupRequest.getUsername())) {
             return ResponseEntity.ok(new MessageResponse("User already registered"));
         }
 

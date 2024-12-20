@@ -19,7 +19,7 @@ public class TransactionController implements Serializable {
     @GetMapping("/transactions")
     @CrossOrigin(value = "*", maxAge = 3600)
     @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<?> findAllTransactions(){
+    public ResponseEntity<?> findAllTransactions() {
         return ResponseEntity.ok(transactionService.findAllTransactions());
     }
 

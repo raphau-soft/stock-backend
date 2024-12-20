@@ -9,7 +9,6 @@ import com.raphau.springboot.stockExchange.entity.Company;
 import com.raphau.springboot.stockExchange.entity.SellOffer;
 import com.raphau.springboot.stockExchange.entity.Stock;
 import com.raphau.springboot.stockExchange.entity.User;
-import com.raphau.springboot.stockExchange.exception.StockAmountException;
 import com.raphau.springboot.stockExchange.exception.UserNotFoundException;
 import com.raphau.springboot.stockExchange.security.MyUserDetails;
 import com.raphau.springboot.stockExchange.service.SellOfferService;
@@ -19,7 +18,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
@@ -97,7 +95,6 @@ public class SellOfferServiceImpl implements SellOfferService {
     }
 
     @Override
-    @Transactional
     public TestDetailsDTO addSellOffer(SellOfferDTO sellOfferDTO) {
         long timeApp = System.currentTimeMillis();
         long databaseTime = 0;

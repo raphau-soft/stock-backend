@@ -16,7 +16,7 @@ public class StockRateController {
     @GetMapping("/stockRates")
     @CrossOrigin(value = "*", maxAge = 3600)
     @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<?> findStockRates(){
+    public ResponseEntity<?> findStockRates() {
         return ResponseEntity.ok(stockRateService.findAllStockRates());
     }
 }

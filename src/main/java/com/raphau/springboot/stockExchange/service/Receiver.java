@@ -15,27 +15,19 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Component
 public class Receiver {
 
     Logger logger = LoggerFactory.getLogger(Receiver.class);
-
-    @Autowired
-    private RestTemplate restTemplate;
 
     @Autowired
     private BuyOfferService buyOfferService;
@@ -50,7 +42,7 @@ public class Receiver {
     private CompanyRepository companyRepository;
 
     @Autowired
-    PasswordEncoder encoder;
+    private PasswordEncoder encoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -183,38 +175,6 @@ public class Receiver {
     }
 
     private int getUnack(String queue) {
-//        String url = "http://guest:guest@rabbitmq:15672/api/queues/%2f/";
-//        ResponseEntity<String> response
-//                = restTemplate.getForEntity(url + queue, String.class);
-//
-//        Matcher matcher = Pattern.compile("(\"messages_unacknowledged\":)([0-9]*)(,)").matcher(response.getBody());
-//
-//        if(matcher.find()) {
-//            String value = matcher.group(2);
-//            return  Integer.parseInt(value);
-//        }
         return 0;
-    }
-
-    @RabbitListener(queues = "trade-request")
-    public void receiveTradeRequest(String tick) throws Exception {
-        logger.info("Received trade tick: " + tick);
-        switch(tick) {
-            case "0":
-                logger.info("Trading started...");
-                tradeService.finishTrading(false);
-                tradeService.trade();
-                break;
-            case "1":
-                logger.info("Clearing database...");
-                tradeService.clearDB();
-                break;
-            case "2":
-                if(!TradeServiceImpl.finishTrading) {
-                    logger.info("Finish trading...");
-                    tradeService.finishTrading(true);
-                }
-                break;
-        }
     }
 }

@@ -27,25 +27,24 @@ public class UserRestController {
     private SellOfferService sellOfferService;
 
 
-
     @GetMapping("/user")
     @CrossOrigin(value = "*", maxAge = 3600)
     @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<?> find(){
+    public ResponseEntity<?> find() {
         return ResponseEntity.ok(userService.getUserDetails());
     }
 
     @GetMapping("/user/buyOffers")
     @CrossOrigin(value = "*", maxAge = 3600)
     @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<?> findBuyOffers(){
+    public ResponseEntity<?> findBuyOffers() {
         return ResponseEntity.ok(buyOfferService.getUserBuyOffers());
     }
 
     @GetMapping("/user/resources")
     @CrossOrigin(value = "*", maxAge = 3600)
     @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<?> findResources(){
+    public ResponseEntity<?> findResources() {
         return ResponseEntity.ok(stockService.findResources());
     }
 
@@ -59,21 +58,21 @@ public class UserRestController {
     @DeleteMapping("user/sellOffers/{theId}")
     @CrossOrigin(value = "*", maxAge = 3600)
     @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<?> deleteSellOffer(@PathVariable int theId){
+    public ResponseEntity<?> deleteSellOffer(@PathVariable int theId) {
         return ResponseEntity.ok(sellOfferService.deleteSellOffer(theId));
     }
 
     @DeleteMapping("user/buyOffers/{theId}")
     @CrossOrigin(value = "*", maxAge = 3600)
     @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<?> deleteBuyOffer(@PathVariable int theId){
+    public ResponseEntity<?> deleteBuyOffer(@PathVariable int theId) {
         return ResponseEntity.ok(buyOfferService.deleteBuyOffer(theId));
     }
 
     @PutMapping("user/login")
     @CrossOrigin(value = "*", maxAge = 3600)
     @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<?> updateUser(@RequestBody UserUpdDTO userUpdDTO){
+    public ResponseEntity<?> updateUser(@RequestBody UserUpdDTO userUpdDTO) {
         return ResponseEntity.ok(userService.updateUser(userUpdDTO));
     }
 

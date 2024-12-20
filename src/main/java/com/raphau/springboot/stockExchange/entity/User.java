@@ -1,10 +1,8 @@
 package com.raphau.springboot.stockExchange.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.raphau.springboot.stockExchange.dto.UserDTO;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -27,7 +25,6 @@ public class User {
     private String username;
 
     @Column(name="password")
-    @JsonIgnore
     private String password;
 
     @Column(name="money")
@@ -40,15 +37,12 @@ public class User {
     private String role;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JsonBackReference
     private List<BuyOffer> buyOffers;
     
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JsonBackReference
     private List<SellOffer> sellOffers;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonBackReference
     private List<Stock> stocks;
 
     public User() {

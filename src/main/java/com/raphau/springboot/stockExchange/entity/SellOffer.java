@@ -1,9 +1,8 @@
 package com.raphau.springboot.stockExchange.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.raphau.springboot.stockExchange.dto.SellOfferDTO;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +25,6 @@ public class SellOffer {
     private User user;
 
     @OneToMany(mappedBy = "sellOffer", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JsonBackReference
     private List<Transaction> transactions;
 
     @Column(name="start_amount")

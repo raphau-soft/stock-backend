@@ -16,14 +16,14 @@ public class CompanyRestController {
     @GetMapping("/companies")
     @CrossOrigin(value = "*", maxAge = 3600)
     @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<?> findAllCompanies(){
+    public ResponseEntity<?> findAllCompanies() {
         return ResponseEntity.ok(companyService.findAllCompanies());
     }
 
     @PostMapping("/company")
     @CrossOrigin(value = "*", maxAge = 3600)
     @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<?> addCompany(@RequestBody CompanyDTO companyDTO){
+    public ResponseEntity<?> addCompany(@RequestBody CompanyDTO companyDTO) {
         return ResponseEntity.ok(companyService.addCompany(companyDTO));
     }
 

@@ -1,9 +1,6 @@
 package com.raphau.springboot.stockExchange.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -25,7 +22,6 @@ public class Stock implements Serializable {
     private Company company;
 
     @OneToMany(mappedBy = "stock", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JsonBackReference
     private List<SellOffer> sellOffers;
 
     @Column(name = "amount")

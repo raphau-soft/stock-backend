@@ -1,8 +1,5 @@
 package com.raphau.springboot.stockExchange.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import javax.persistence.*;
 
 public class CpuDataDTO {
 
