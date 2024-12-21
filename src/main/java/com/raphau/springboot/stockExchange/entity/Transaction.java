@@ -1,11 +1,18 @@
 package com.raphau.springboot.stockExchange.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name="transaction")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Transaction implements Serializable {
 
     @Id
@@ -29,76 +36,4 @@ public class Transaction implements Serializable {
 
     @Column(name = "transaction_date")
     private Date date;
-
-    public Transaction() {
-    }
-
-    public Transaction(int id, BuyOffer buyOffer, SellOffer sellOffer, int amount, double price, Date date) {
-        this.id = id;
-        this.buyOffer = buyOffer;
-        this.sellOffer = sellOffer;
-        this.amount = amount;
-        this.price = price;
-        this.date = date;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public BuyOffer getBuyOffer() {
-        return buyOffer;
-    }
-
-    public void setBuyOffer(BuyOffer buyOffer) {
-        this.buyOffer = buyOffer;
-    }
-
-    public SellOffer getSellOffer() {
-        return sellOffer;
-    }
-
-    public void setSellOffer(SellOffer sellOffer) {
-        this.sellOffer = sellOffer;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "id=" + id +
-                ", buyOffer=" + buyOffer +
-                ", sellOffer=" + sellOffer +
-                ", amount=" + amount +
-                ", price=" + price +
-                ", date=" + date +
-                '}';
-    }
 }

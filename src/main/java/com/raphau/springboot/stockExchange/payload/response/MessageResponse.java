@@ -1,9 +1,10 @@
 package com.raphau.springboot.stockExchange.payload.response;
 
-public class MessageResponse {
-    String message;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-    public MessageResponse(String message) {
-        this.message = message;
-    }
+@Data
+@AllArgsConstructor
+public class MessageResponse {
+    private String message;
 }

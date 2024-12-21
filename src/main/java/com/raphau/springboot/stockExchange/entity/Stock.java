@@ -1,11 +1,18 @@
 package com.raphau.springboot.stockExchange.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name="stock")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Stock implements Serializable {
 
     @Id
@@ -27,64 +34,10 @@ public class Stock implements Serializable {
     @Column(name = "amount")
     private int amount;
 
-    public Stock() {
-    }
-
     public Stock(int id, User user, Company company, int amount) {
         this.id = id;
         this.user = user;
         this.company = company;
         this.amount = amount;
-    }
-
-    public List<SellOffer> getSellOffers() {
-        return sellOffers;
-    }
-
-    public void setSellOffers(List<SellOffer> sellOffers) {
-        this.sellOffers = sellOffers;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    @Override
-    public String toString() {
-        return "Stock{" +
-                "id=" + id +
-                ", user=" + user +
-                ", company=" + company +
-                ", sellOffers=" + sellOffers +
-                ", amount=" + amount +
-                '}';
     }
 }

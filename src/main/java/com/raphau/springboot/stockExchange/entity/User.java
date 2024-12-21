@@ -3,11 +3,17 @@ package com.raphau.springboot.stockExchange.entity;
 import com.raphau.springboot.stockExchange.dto.UserDTO;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
 @Table(name="user", schema = "stock_exchange")
+@NoArgsConstructor
+@Data
 public class User {
 
     @Id
@@ -45,9 +51,6 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Stock> stocks;
 
-    public User() {
-    }
-
     public User(UserDTO userDTO) {
         this.id = userDTO.getId();
         this.name = userDTO.getName();
@@ -68,107 +71,5 @@ public class User {
         this.money = money;
         this.email = email;
         this.role = role;
-    }
-
-    public List<BuyOffer> getBuyOffers() {
-        return buyOffers;
-    }
-
-    public void setBuyOffers(List<BuyOffer> buyOffers) {
-        this.buyOffers = buyOffers;
-    }
-
-    public List<SellOffer> getSellOffers() {
-		return sellOffers;
-	}
-
-	public void setSellOffers(List<SellOffer> sellOffers) {
-		this.sellOffers = sellOffers;
-	}
-
-	public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public BigDecimal getMoney() {
-        return money;
-    }
-
-    public void setMoney(BigDecimal money) {
-        this.money = money;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public List<Stock> getStocks() {
-        return stocks;
-    }
-
-    public void setStocks(List<Stock> stocks) {
-        this.stocks = stocks;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", money=" + money +
-                ", email='" + email + '\'' +
-                ", roles='" + role + '\'' +
-                '}';
     }
 }

@@ -2,6 +2,9 @@ package com.raphau.springboot.stockExchange.entity;
 
 import com.raphau.springboot.stockExchange.dto.BuyOfferDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -10,6 +13,9 @@ import java.util.List;
 
 @Entity
 @Table(name="buy_offer", schema = "stock_exchange")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class BuyOffer implements Serializable {
 
     @Id
@@ -42,20 +48,6 @@ public class BuyOffer implements Serializable {
 
     @Column(name="actual")
     private boolean actual;
-
-    public BuyOffer() {
-    }
-
-    public BuyOffer(int id, Company company, User user, BigDecimal maxPrice, int startAmount, int amount, Date dateLimit, boolean actual) {
-        this.id = id;
-        this.company = company;
-        this.user = user;
-        this.maxPrice = maxPrice;
-        this.startAmount = startAmount;
-        this.amount = amount;
-        this.dateLimit = dateLimit;
-        this.actual = actual;
-    }
     
     public BuyOffer(BuyOfferDTO buyOfferDTO, User user, Company company) {
         this.id = buyOfferDTO.getId();
@@ -66,98 +58,5 @@ public class BuyOffer implements Serializable {
         this.amount = buyOfferDTO.getAmount();
         this.dateLimit = buyOfferDTO.getDateLimit();
         this.actual = true;
-    }
-
-    public List<Transaction> getTransactions() {
-        return transactions;
-    }
-
-    public BuyOffer setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
-        return this;
-    }
-
-    public int getStartAmount() {
-        return startAmount;
-    }
-
-    public BuyOffer setStartAmount(int startAmount) {
-        this.startAmount = startAmount;
-        return this;
-    }
-
-    public boolean isActual() {
-        return actual;
-    }
-
-    public BuyOffer setActual(boolean actual) {
-        this.actual = actual;
-        return this;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public BuyOffer setId(int id) {
-        this.id = id;
-        return this;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public BuyOffer setCompany(Company company) {
-        this.company = company;
-        return this;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public BuyOffer setUser(User user) {
-        this.user = user;
-        return this;
-    }
-
-    public BigDecimal getMaxPrice() {
-        return maxPrice;
-    }
-
-    public BuyOffer setMaxPrice(BigDecimal maxPrice) {
-        this.maxPrice = maxPrice;
-        return this;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public BuyOffer setAmount(int amount) {
-        this.amount = amount;
-        return this;
-    }
-
-    public Date getDateLimit() {
-        return dateLimit;
-    }
-
-    public BuyOffer setDateLimit(Date dateLimit) {
-        this.dateLimit = dateLimit;
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return "\n\nBuyOffer{" +
-                "id=" + id +
-                ", company=" + company.getId() +
-                ", user=" + user.getId() +
-                ", maxPrice=" + maxPrice +
-                ", amount=" + amount +
-                ", dateLimit=" + dateLimit +
-                "}\n\n";
     }
 }

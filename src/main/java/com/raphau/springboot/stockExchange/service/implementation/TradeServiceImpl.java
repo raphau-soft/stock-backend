@@ -1,14 +1,9 @@
 package com.raphau.springboot.stockExchange.service.implementation;
 
-import java.lang.management.ManagementFactory;
-import java.lang.management.OperatingSystemMXBean;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.math.BigDecimal;
-import java.util.*;
-
-import com.raphau.springboot.stockExchange.dto.CpuDataDTO;
+import com.raphau.springboot.stockExchange.dao.*;
 import com.raphau.springboot.stockExchange.dto.TimeDataDTO;
+import com.raphau.springboot.stockExchange.entity.*;
+import com.raphau.springboot.stockExchange.service.TradeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -17,21 +12,10 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import com.raphau.springboot.stockExchange.dao.BuyOfferRepository;
-import com.raphau.springboot.stockExchange.dao.CompanyRepository;
-import com.raphau.springboot.stockExchange.dao.SellOfferRepository;
-import com.raphau.springboot.stockExchange.dao.StockRateRepository;
-import com.raphau.springboot.stockExchange.dao.StockRepository;
-import com.raphau.springboot.stockExchange.dao.TransactionRepository;
-import com.raphau.springboot.stockExchange.dao.UserRepository;
-import com.raphau.springboot.stockExchange.entity.BuyOffer;
-import com.raphau.springboot.stockExchange.entity.Company;
-import com.raphau.springboot.stockExchange.entity.SellOffer;
-import com.raphau.springboot.stockExchange.entity.Stock;
-import com.raphau.springboot.stockExchange.entity.StockRate;
-import com.raphau.springboot.stockExchange.entity.Transaction;
-import com.raphau.springboot.stockExchange.entity.User;
-import com.raphau.springboot.stockExchange.service.TradeService;
+import java.lang.management.ManagementFactory;
+import java.lang.management.OperatingSystemMXBean;
+import java.math.BigDecimal;
+import java.util.*;
 
 
 @Service
@@ -69,7 +53,7 @@ public class TradeServiceImpl implements TradeService {
     public void addStocks() {
         List<Stock> stocks = stockRepository.findAll();
         for (Stock stock : stocks) {
-            if(stock.getAmount() == 0) {
+            if (stock.getAmount() == 0) {
                 stockRepository.delete(stock);
                 continue;
             }
@@ -78,30 +62,9 @@ public class TradeServiceImpl implements TradeService {
         }
     }
 
-    @Override
-    @Scheduled(cron = "0 */1 * * * ?")
-    public void measure() {
-        double memoryUsage = ((double) Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/Runtime.getRuntime().totalMemory();
-        for (Method method : bean.getClass().getDeclaredMethods()) {
-            method.setAccessible(true);
-            if (method.getName().startsWith("getSystem")
-                    && Modifier.isPublic(method.getModifiers())) {
-                Object value;
-                try {
-                    value = method.invoke(bean);
-                } catch (Exception e) {
-                    value = e;
-                }
-
-                CpuDataDTO cpuDataDTO = new CpuDataDTO(System.currentTimeMillis(), (Double) value, memoryUsage, guid);
-                this.rabbitTemplate.convertAndSend("cpu-data-exchange", "foo.bar.#", cpuDataDTO);
-            }
-        }
-    }
-
     @Scheduled(fixedDelay = 10000)
     public void sendTradingConfirmation() {
-        if(!finishTrading) {
+        if (!finishTrading) {
             rabbitTemplate.convertAndSend("register-response-exchange", "foo.bar.#", "1");
         }
     }
@@ -198,7 +161,8 @@ public class TradeServiceImpl implements TradeService {
 
     boolean startTrading(List<BuyOffer> buyOffers,
                          List<SellOffer> sellOffers, List<Transaction> transactions) {
-        int i = 0, j = 0; long temp;
+        int i = 0, j = 0;
+        long temp;
         while (i < buyOffers.size() && j < sellOffers.size()) {
             BuyOffer buyOffer = buyOffers.get(i);
             SellOffer sellOffer = sellOffers.get(j);
@@ -210,7 +174,7 @@ public class TradeServiceImpl implements TradeService {
                 buyOfferStayTime += System.currentTimeMillis() - temp;
                 j++;
             } else if (buyOffer.getAmount() < sellOffer.getAmount()) {
-                 temp = System.currentTimeMillis();
+                temp = System.currentTimeMillis();
                 transactions.add(sellOfferStay(buyOffer, sellOffer));
                 sellOfferStayTime += System.currentTimeMillis() - temp;
                 i++;
@@ -218,7 +182,8 @@ public class TradeServiceImpl implements TradeService {
                 temp = System.currentTimeMillis();
                 transactions.add(noneOfferStay(buyOffer, sellOffer));
                 noneStayTime += System.currentTimeMillis() - temp;
-                i++; j++;
+                i++;
+                j++;
             }
         }
         return true;
@@ -248,10 +213,10 @@ public class TradeServiceImpl implements TradeService {
             stock = stockOptional.get();
             stock.setAmount(stock.getAmount() + sellOffer.getAmount());
         }
-        buyOffer.setAmount(0)
-                .setActual(false);
-        sellOffer.setAmount(0)
-                .setActual(false);
+        buyOffer.setAmount(0);
+        buyOffer.setActual(false);
+        sellOffer.setAmount(0);
+        sellOffer.setActual(false);
         dbTime = System.currentTimeMillis();
         stockRepository.save(stock);
         transactionRepository.save(transaction);
@@ -282,8 +247,8 @@ public class TradeServiceImpl implements TradeService {
             stock.setAmount(stock.getAmount() + sellOffer.getAmount());
         }
         buyOffer.setAmount(buyOffer.getAmount() - sellOffer.getAmount());
-        sellOffer.setAmount(0)
-                .setActual(false);
+        sellOffer.setAmount(0);
+        sellOffer.setActual(false);
         dbTime = System.currentTimeMillis();
         stockRepository.save(stock);
         transactionRepository.save(transaction);
@@ -313,8 +278,8 @@ public class TradeServiceImpl implements TradeService {
             stock.setAmount(stock.getAmount() + buyOffer.getAmount());
         }
         sellOffer.setAmount(sellOffer.getAmount() - buyOffer.getAmount());
-        buyOffer.setAmount(0)
-                .setActual(false);
+        buyOffer.setAmount(0);
+        buyOffer.setActual(false);
         dbTime = System.currentTimeMillis();
         stockRepository.save(stock);
         transactionRepository.save(transaction);
