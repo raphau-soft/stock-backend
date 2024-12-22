@@ -1,6 +1,6 @@
 package com.raphau.springboot.stockExchange.rest;
 
-import com.raphau.springboot.stockExchange.service.StockRateService;
+import com.raphau.springboot.stockExchange.service.api.StockRateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,8 +14,6 @@ public class StockRateController {
     private StockRateService stockRateService;
 
     @GetMapping("/stockRates")
-    @CrossOrigin(value = "*", maxAge = 3600)
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<?> findStockRates() {
         return ResponseEntity.ok(stockRateService.findAllStockRates());
     }

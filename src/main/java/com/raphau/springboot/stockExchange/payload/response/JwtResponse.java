@@ -8,9 +8,6 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class JwtResponse {
-    private int id;
-    private String jwt;
-    private String username;
-    private String email;
+    private String token;
     private List<String> roles;
 }

@@ -1,7 +1,7 @@
 package com.raphau.springboot.stockExchange.rest;
 
 import com.raphau.springboot.stockExchange.dto.CompanyDTO;
-import com.raphau.springboot.stockExchange.service.CompanyService;
+import com.raphau.springboot.stockExchange.service.api.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,15 +14,11 @@ public class CompanyRestController {
     private CompanyService companyService;
 
     @GetMapping("/companies")
-    @CrossOrigin(value = "*", maxAge = 3600)
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<?> findAllCompanies() {
         return ResponseEntity.ok(companyService.findAllCompanies());
     }
 
     @PostMapping("/company")
-    @CrossOrigin(value = "*", maxAge = 3600)
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<?> addCompany(@RequestBody CompanyDTO companyDTO) {
         return ResponseEntity.ok(companyService.addCompany(companyDTO));
     }

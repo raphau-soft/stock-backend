@@ -1,7 +1,7 @@
 package com.raphau.springboot.stockExchange.rest;
 
 import com.raphau.springboot.stockExchange.dto.SellOfferDTO;
-import com.raphau.springboot.stockExchange.service.SellOfferService;
+import com.raphau.springboot.stockExchange.service.api.SellOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,8 +15,6 @@ public class SellOfferRestController {
     private SellOfferService sellOfferService;
 
     @PostMapping("/sellOffer")
-    @CrossOrigin(value = "*", maxAge = 3600)
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<?> addSellOffer(@RequestBody SellOfferDTO sellOfferDTO) throws InterruptedException {
         return ResponseEntity.ok(sellOfferService.addSellOffer(sellOfferDTO));
     }

@@ -3,7 +3,7 @@ package com.raphau.springboot.stockExchange.service.implementation;
 import com.raphau.springboot.stockExchange.dao.*;
 import com.raphau.springboot.stockExchange.dto.TimeDataDTO;
 import com.raphau.springboot.stockExchange.entity.*;
-import com.raphau.springboot.stockExchange.service.TradeService;
+import com.raphau.springboot.stockExchange.service.api.TradeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

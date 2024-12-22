@@ -3,7 +3,7 @@ package com.raphau.springboot.stockExchange.service.implementation;
 import com.raphau.springboot.stockExchange.dao.TransactionRepository;
 import com.raphau.springboot.stockExchange.dto.TestDetailsDTO;
 import com.raphau.springboot.stockExchange.entity.Transaction;
-import com.raphau.springboot.stockExchange.service.TransactionService;
+import com.raphau.springboot.stockExchange.service.api.TransactionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

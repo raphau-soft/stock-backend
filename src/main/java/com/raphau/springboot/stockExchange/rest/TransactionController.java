@@ -1,6 +1,6 @@
 package com.raphau.springboot.stockExchange.rest;
 
-import com.raphau.springboot.stockExchange.service.TransactionService;
+import com.raphau.springboot.stockExchange.service.api.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,8 +17,6 @@ public class TransactionController implements Serializable {
     private TransactionService transactionService;
 
     @GetMapping("/transactions")
-    @CrossOrigin(value = "*", maxAge = 3600)
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<?> findAllTransactions() {
         return ResponseEntity.ok(transactionService.findAllTransactions());
     }

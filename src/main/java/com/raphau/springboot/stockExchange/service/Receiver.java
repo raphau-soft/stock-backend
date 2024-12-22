@@ -7,6 +7,7 @@ import com.raphau.springboot.stockExchange.dto.*;
 import com.raphau.springboot.stockExchange.entity.Company;
 import com.raphau.springboot.stockExchange.entity.StockRate;
 import com.raphau.springboot.stockExchange.entity.User;
+import com.raphau.springboot.stockExchange.service.api.*;
 import com.raphau.springboot.stockExchange.service.implementation.TradeServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

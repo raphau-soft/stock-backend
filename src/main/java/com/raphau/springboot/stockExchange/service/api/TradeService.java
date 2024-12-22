@@ -1,4 +1,4 @@
-package com.raphau.springboot.stockExchange.service;
+package com.raphau.springboot.stockExchange.service.api;
 
 public interface TradeService {
 

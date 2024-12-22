@@ -1,17 +1,17 @@
 package com.raphau.springboot.stockExchange.rest;
 
 import com.raphau.springboot.stockExchange.dto.UserUpdDTO;
-import com.raphau.springboot.stockExchange.service.BuyOfferService;
-import com.raphau.springboot.stockExchange.service.SellOfferService;
-import com.raphau.springboot.stockExchange.service.StockService;
-import com.raphau.springboot.stockExchange.service.UserService;
+import com.raphau.springboot.stockExchange.service.api.BuyOfferService;
+import com.raphau.springboot.stockExchange.service.api.SellOfferService;
+import com.raphau.springboot.stockExchange.service.api.StockService;
+import com.raphau.springboot.stockExchange.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserRestController {
 
     @Autowired
@@ -26,52 +26,37 @@ public class UserRestController {
     @Autowired
     private SellOfferService sellOfferService;
 
-
-    @GetMapping("/user")
-    @CrossOrigin(value = "*", maxAge = 3600)
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping()
     public ResponseEntity<?> find() {
         return ResponseEntity.ok(userService.getUserDetails());
     }
 
-    @GetMapping("/user/buyOffers")
-    @CrossOrigin(value = "*", maxAge = 3600)
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/buyOffers")
     public ResponseEntity<?> findBuyOffers() {
         return ResponseEntity.ok(buyOfferService.getUserBuyOffers());
     }
 
-    @GetMapping("/user/resources")
-    @CrossOrigin(value = "*", maxAge = 3600)
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/resources")
     public ResponseEntity<?> findResources() {
         return ResponseEntity.ok(stockService.findResources());
     }
 
-    @GetMapping("/user/sellOffers")
-    @CrossOrigin(value = "*", maxAge = 3600)
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/sellOffers")
     public ResponseEntity<?> findSellOffers() throws InterruptedException {
         return ResponseEntity.ok(sellOfferService.getUserSellOffers());
     }
 
-    @DeleteMapping("user/sellOffers/{theId}")
-    @CrossOrigin(value = "*", maxAge = 3600)
-    @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<?> deleteSellOffer(@PathVariable int theId) {
-        return ResponseEntity.ok(sellOfferService.deleteSellOffer(theId));
+    @DeleteMapping("/sellOffers/{id}")
+    public ResponseEntity<?> deleteSellOffer(@PathVariable(name = "id") int id) {
+        return ResponseEntity.ok(sellOfferService.deleteSellOffer(id));
     }
 
-    @DeleteMapping("user/buyOffers/{theId}")
-    @CrossOrigin(value = "*", maxAge = 3600)
-    @PreAuthorize("hasRole('ROLE_USER')")
-    public ResponseEntity<?> deleteBuyOffer(@PathVariable int theId) {
-        return ResponseEntity.ok(buyOfferService.deleteBuyOffer(theId));
+    @DeleteMapping("/buyOffers/{id}")
+    public ResponseEntity<?> deleteBuyOffer(@PathVariable(name = "id") int id) {
+        return ResponseEntity.ok(buyOfferService.deleteBuyOffer(id));
     }
 
-    @PutMapping("user/login")
-    @CrossOrigin(value = "*", maxAge = 3600)
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PutMapping()
     public ResponseEntity<?> updateUser(@RequestBody UserUpdDTO userUpdDTO) {
         return ResponseEntity.ok(userService.updateUser(userUpdDTO));
     }

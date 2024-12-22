@@ -10,8 +10,8 @@ import com.raphau.springboot.stockExchange.entity.Stock;
 import com.raphau.springboot.stockExchange.entity.StockRate;
 import com.raphau.springboot.stockExchange.entity.User;
 import com.raphau.springboot.stockExchange.exception.UserNotFoundException;
-import com.raphau.springboot.stockExchange.service.CompanyService;
-import com.raphau.springboot.stockExchange.service.UserService;
+import com.raphau.springboot.stockExchange.service.api.CompanyService;
+import com.raphau.springboot.stockExchange.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
