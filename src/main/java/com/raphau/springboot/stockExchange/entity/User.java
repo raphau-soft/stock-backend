@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
-@Table(name="user", schema = "stock_exchange")
+@Table(name="user")
 @NoArgsConstructor
 @Data
 public class User {
@@ -50,17 +50,6 @@ public class User {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Stock> stocks;
-
-    public User(UserDTO userDTO) {
-        this.id = userDTO.getId();
-        this.name = userDTO.getName();
-        this.surname = userDTO.getSurname();
-        this.username = userDTO.getUsername();
-        this.password = userDTO.getPassword();
-        this.email = userDTO.getEmail();
-        this.money = userDTO.getMoney();
-        this.role = userDTO.getRole();
-    }
 
     public User(int id, String name, String surname, String username, String password, BigDecimal money, String email, String role) {
         this.id = id;

@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="buy_offer", schema = "stock_exchange")
+@Table(name="buy_offer")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

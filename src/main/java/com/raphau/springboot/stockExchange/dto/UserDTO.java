@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Data
 public class UserDTO {
-    private int id;
     private String name;
     private String surname;
     private String username;
