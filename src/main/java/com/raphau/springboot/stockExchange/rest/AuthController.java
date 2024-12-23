@@ -9,6 +9,7 @@ import com.raphau.springboot.stockExchange.security.jwt.JwtUtils;
 import com.raphau.springboot.stockExchange.service.api.CompanyService;
 import com.raphau.springboot.stockExchange.service.api.UserService;
 import lombok.extern.log4j.Log4j2;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -14,6 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.UUID;
@@ -29,16 +30,45 @@ public class LoggingFilter extends OncePerRequestFilter {
 
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        ContentCachingRequestWrapper requestWrapper = requestWrapper(request);
         ContentCachingResponseWrapper responseWrapper = responseWrapper(response);
         String requestId = UUID.randomUUID().toString();
         MDC.put("requestId", requestId);
 
-        chain.doFilter(requestWrapper, responseWrapper);
+        log.info("Incoming request:\n" +
+                        "ID: {}\n" +
+                        "Method: {}\n" +
+                        "URI: {}\n" +
+                        "Headers: [{}]\n" +
+                        "Body: [{}]",
+                requestId,
+                request.getMethod(),
+                request.getRequestURI(),
+                headersToString(list(request.getHeaderNames()), request::getHeader),
+                sanitizeJson(getRequestBody(request)));
 
-        log.info("Incoming request:\nID: {}\n{} {}\nHeaders: [{}]\nBody: [{}]", requestId, request.getMethod(), request.getRequestURI(), headersToString(list(request.getHeaderNames()), request::getHeader), getMaskedBody(requestWrapper.getContentAsString()));
-        log.info("Outgoing response:\nID: {}\nHeaders: [{}]\nBody: [{}]", requestId, headersToString(response.getHeaderNames(), response::getHeader), getMaskedBody(new String(responseWrapper.getContentAsByteArray())));
-        responseWrapper.copyBodyToResponse();
+        try {
+            chain.doFilter(request, responseWrapper);
+        } finally {
+            log.info("Outgoing response:\n" +
+                            "ID: {}\n" +
+                            "Headers: [{}]\n" +
+                            "Body: [{}]",
+                    requestId,
+                    headersToString(response.getHeaderNames(), response::getHeader),
+                    sanitizeJson(new String(responseWrapper.getContentAsByteArray())));
+            responseWrapper.copyBodyToResponse();
+        }
+    }
+
+    private String getRequestBody(ServletRequest request) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        BufferedReader reader = request.getReader();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+        }
+
+        return sb.toString();
     }
 
     private ContentCachingRequestWrapper requestWrapper(ServletRequest request) {
@@ -67,7 +97,7 @@ public class LoggingFilter extends OncePerRequestFilter {
                 .collect(Collectors.joining(", "));
     }
 
-    private String getMaskedBody(String body) {
+    private String sanitizeJson(String body) {
         if (body.isEmpty()) return body;
         try {
             JsonObject jsonObject = JsonParser.parseString(body).getAsJsonObject();
