@@ -20,7 +20,8 @@ public class CompanyRestController {
 
     @PostMapping("/company")
     public ResponseEntity<?> addCompany(@RequestBody CompanyDTO companyDTO) {
-        return ResponseEntity.ok(companyService.addCompany(companyDTO));
+        companyService.addCompany(companyDTO);
+        return ResponseEntity.ok().build();
     }
 
 }

@@ -16,7 +16,8 @@ public class SellOfferRestController {
 
     @PostMapping("/sellOffer")
     public ResponseEntity<?> addSellOffer(@RequestBody SellOfferDTO sellOfferDTO) throws InterruptedException {
-        return ResponseEntity.ok(sellOfferService.addSellOffer(sellOfferDTO));
+        sellOfferService.addSellOffer(sellOfferDTO);
+        return ResponseEntity.ok().build();
     }
 }
 

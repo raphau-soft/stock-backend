@@ -1,9 +1,8 @@
 package com.raphau.springboot.stockExchange.entity;
 
-import com.raphau.springboot.stockExchange.dto.UserDTO;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +12,9 @@ import java.util.List;
 @Entity
 @Table(name="user")
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Builder
 public class User {
 
     @Id

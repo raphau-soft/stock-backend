@@ -34,8 +34,7 @@ public class Stock implements Serializable {
     @Column(name = "amount")
     private int amount;
 
-    public Stock(int id, User user, Company company, int amount) {
-        this.id = id;
+    public Stock(User user, Company company, int amount) {
         this.user = user;
         this.company = company;
         this.amount = amount;

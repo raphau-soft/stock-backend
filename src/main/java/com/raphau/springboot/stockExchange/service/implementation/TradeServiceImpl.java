@@ -6,10 +6,8 @@ import com.raphau.springboot.stockExchange.entity.*;
 import com.raphau.springboot.stockExchange.service.api.TradeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.lang.management.ManagementFactory;
@@ -46,8 +44,6 @@ public class TradeServiceImpl implements TradeService {
     private StockRateRepository stockRateRepository;
     @Autowired
     private CompanyRepository companyRepository;
-    @Autowired
-    RabbitTemplate rabbitTemplate;
 
     @Override
     public void addStocks() {
@@ -59,13 +55,6 @@ public class TradeServiceImpl implements TradeService {
             }
             stock.setAmount(10 + stock.getAmount());
             stockRepository.save(stock);
-        }
-    }
-
-    @Scheduled(fixedDelay = 10000)
-    public void sendTradingConfirmation() {
-        if (!finishTrading) {
-            rabbitTemplate.convertAndSend("register-response-exchange", "foo.bar.#", "1");
         }
     }
 
@@ -141,7 +130,6 @@ public class TradeServiceImpl implements TradeService {
         timeDataDTO.setNumberOfBuyOffers(numberOfBuyOffers);
         timeDataDTO.setNumberOfSellOffers(numberOfSellOffers);
         logger.info("Sending trade response tick");
-        this.rabbitTemplate.convertAndSend("trade-response-exchange", "foo.bar.#", timeDataDTO);
         this.finishTrading(true);
         logger.info("XYZ1 Get companies time: " + getCompaniesTime);
         logger.info("XYZ2 Get buy offers time: " + getBuyOffersTime);
@@ -207,7 +195,7 @@ public class TradeServiceImpl implements TradeService {
         databaseTime += System.currentTimeMillis() - dbTime;
         Stock stock;
         if (!stockOptional.isPresent()) {
-            stock = new Stock(0, buyOfferOwner,
+            stock = new Stock(buyOfferOwner,
                     buyOffer.getCompany(), sellOffer.getAmount());
         } else {
             stock = stockOptional.get();
@@ -241,7 +229,7 @@ public class TradeServiceImpl implements TradeService {
         databaseTime += System.currentTimeMillis() - dbTime;
         Stock stock;
         if (!stockOptional.isPresent()) {
-            stock = new Stock(0, buyOfferOwner, buyOffer.getCompany(), sellOffer.getAmount());
+            stock = new Stock(buyOfferOwner, buyOffer.getCompany(), sellOffer.getAmount());
         } else {
             stock = stockOptional.get();
             stock.setAmount(stock.getAmount() + sellOffer.getAmount());
@@ -272,7 +260,7 @@ public class TradeServiceImpl implements TradeService {
         databaseTime += System.currentTimeMillis() - dbTime;
         Stock stock;
         if (!stockOptional.isPresent()) {
-            stock = new Stock(0, buyOfferOwner, buyOffer.getCompany(), buyOffer.getAmount());
+            stock = new Stock(buyOfferOwner, buyOffer.getCompany(), buyOffer.getAmount());
         } else {
             stock = stockOptional.get();
             stock.setAmount(stock.getAmount() + buyOffer.getAmount());
@@ -331,32 +319,4 @@ public class TradeServiceImpl implements TradeService {
         }
     }
 
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

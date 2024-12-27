@@ -3,23 +3,18 @@ package com.raphau.springboot.stockExchange.service.implementation;
 
 import com.raphau.springboot.stockExchange.dao.BuyOfferRepository;
 import com.raphau.springboot.stockExchange.dao.UserRepository;
-import com.raphau.springboot.stockExchange.dto.TestDetailsDTO;
-import com.raphau.springboot.stockExchange.dto.UserUpdDTO;
 import com.raphau.springboot.stockExchange.entity.User;
+import com.raphau.springboot.stockExchange.exception.UserAlreadyExistsException;
 import com.raphau.springboot.stockExchange.exception.UserNotFoundException;
 import com.raphau.springboot.stockExchange.payload.request.SignupRequest;
-import com.raphau.springboot.stockExchange.payload.response.MessageResponse;
-import com.raphau.springboot.stockExchange.security.MyUserDetails;
 import com.raphau.springboot.stockExchange.service.api.UserService;
+import com.raphau.springboot.stockExchange.utils.AuthUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,69 +29,42 @@ public class UserServiceImpl implements UserService {
     private BuyOfferRepository buyOfferRepository;
 
     public void createUser(SignupRequest signupRequest) {
-        if (userRepository.existsByUsername(signupRequest.getUsername())) {
-            throw new RuntimeException("User exists");
-        }
+        validateUserExistence(signupRequest.getUsername());
 
-        User user = new User(0, signupRequest.getName(), signupRequest.getSurname(),
-                signupRequest.getUsername(), encoder.encode(signupRequest.getPassword()), new BigDecimal(1000000), signupRequest.getEmail(),
-                "ROLE_USER");
+        User user = buildNewUser(signupRequest);
 
         userRepository.save(user);
     }
 
-    public Map<String, Object> getUserDetails(){
-        long timeApp = System.currentTimeMillis();
-        TestDetailsDTO testDetailsDTO = new TestDetailsDTO();
-        long timeBase = System.currentTimeMillis();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
-        Optional<User> userOpt = findByUsername(userDetails.getUsername());
-        testDetailsDTO.setDatabaseTime(System.currentTimeMillis() - timeBase);
-
-        if (!userOpt.isPresent()){
-            throw new UserNotFoundException("User " + userDetails.getUsername() + " not found");
+    private void validateUserExistence(String username) {
+        if (userRepository.existsByUsername(username)) {
+            throw new UserAlreadyExistsException("User with username " + username + " already exists");
         }
+    }
 
-        User user = userOpt.get();
+    private User buildNewUser(SignupRequest signupRequest) {
+        return User.builder()
+                .name(signupRequest.getName())
+                .surname(signupRequest.getSurname())
+                .username(signupRequest.getUsername())
+                .password(encoder.encode(signupRequest.getPassword()))
+                .money(BigDecimal.valueOf(1000000))
+                .email(signupRequest.getEmail())
+                .role("ROLE_USER")
+                .build();
+    }
+
+    public User getUserDetails() {
+        String username = AuthUtils.getAuthenticatedUsername();
+        User user = findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("User " + username + " not found"));
+
         user.setPassword(null);
-
-        Map<String, Object> objects = new HashMap<>();
-        objects.put("user", user);
-        objects.put("testDetails", testDetailsDTO);
-        testDetailsDTO.setApplicationTime(System.currentTimeMillis() - timeApp);
-        return objects;
+        return user;
     }
 
     @Override
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
-    }
-
-    @Override
-    public TestDetailsDTO updateUser(UserUpdDTO userUpdDTO) {
-        long timeApp = System.currentTimeMillis();
-        TestDetailsDTO testDetailsDTO = new TestDetailsDTO();
-        long timeBase = System.currentTimeMillis();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
-        Optional<User> userOpt = findByUsername(userDetails.getUsername());
-        testDetailsDTO.setDatabaseTime(System.currentTimeMillis() - timeBase);
-
-        if(!userOpt.isPresent()){
-            throw new UserNotFoundException("User " + userDetails.getUsername() + " not found");
-        }
-
-        User user = userOpt.get();
-
-        user.setUsername(userUpdDTO.getUsername());
-        user.setPassword(userUpdDTO.getPassword());
-
-        timeBase = System.currentTimeMillis();
-        userRepository.save(user);
-        testDetailsDTO.setDatabaseTime(System.currentTimeMillis() - timeBase + testDetailsDTO.getDatabaseTime());
-
-        testDetailsDTO.setApplicationTime(System.currentTimeMillis() - timeApp);
-        return testDetailsDTO;
     }
 }

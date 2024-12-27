@@ -56,7 +56,7 @@ public class SellOffer {
         this.startAmount = sellOfferDTO.getAmount();
         this.amount = sellOfferDTO.getAmount();
         this.minPrice = sellOfferDTO.getMinPrice();
-        this.dateLimit = sellOfferDTO.getDateLimit();
+        this.dateLimit = new Date();
         this.actual = true;
     }
 }

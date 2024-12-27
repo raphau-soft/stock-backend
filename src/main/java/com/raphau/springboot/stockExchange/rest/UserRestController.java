@@ -1,13 +1,11 @@
 package com.raphau.springboot.stockExchange.rest;
 
-import com.raphau.springboot.stockExchange.dto.UserUpdDTO;
 import com.raphau.springboot.stockExchange.service.api.BuyOfferService;
 import com.raphau.springboot.stockExchange.service.api.SellOfferService;
 import com.raphau.springboot.stockExchange.service.api.StockService;
 import com.raphau.springboot.stockExchange.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -48,17 +46,14 @@ public class UserRestController {
 
     @DeleteMapping("/sellOffers/{id}")
     public ResponseEntity<?> deleteSellOffer(@PathVariable(name = "id") int id) {
-        return ResponseEntity.ok(sellOfferService.deleteSellOffer(id));
+        sellOfferService.deleteSellOffer(id);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/buyOffers/{id}")
     public ResponseEntity<?> deleteBuyOffer(@PathVariable(name = "id") int id) {
-        return ResponseEntity.ok(buyOfferService.deleteBuyOffer(id));
-    }
-
-    @PutMapping()
-    public ResponseEntity<?> updateUser(@RequestBody UserUpdDTO userUpdDTO) {
-        return ResponseEntity.ok(userService.updateUser(userUpdDTO));
+        buyOfferService.deleteBuyOffer(id);
+        return ResponseEntity.ok().build();
     }
 
 }

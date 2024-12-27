@@ -4,7 +4,6 @@ import com.raphau.springboot.stockExchange.dto.BuyOfferDTO;
 import com.raphau.springboot.stockExchange.service.api.BuyOfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,8 +14,9 @@ public class BuyOfferRestController {
     private BuyOfferService buyOfferService;
 
     @PostMapping("/buyOffer")
-    public ResponseEntity<?> addOffer(@RequestBody BuyOfferDTO buyOfferDTO) throws InterruptedException {
-        return ResponseEntity.ok(buyOfferService.addOffer(buyOfferDTO));
+    public ResponseEntity<?> addOffer(@RequestBody BuyOfferDTO buyOfferDTO) {
+        buyOfferService.addOffer(buyOfferDTO);
+        return ResponseEntity.ok().build();
     }
 
 }

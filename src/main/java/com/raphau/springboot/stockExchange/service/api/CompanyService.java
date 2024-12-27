@@ -1,13 +1,12 @@
 package com.raphau.springboot.stockExchange.service.api;
 
 import com.raphau.springboot.stockExchange.dto.CompanyDTO;
-import com.raphau.springboot.stockExchange.dto.TestDetailsDTO;
+import com.raphau.springboot.stockExchange.entity.Company;
 
+import java.util.List;
 import java.util.Map;
 
 public interface CompanyService {
-
-    Map<String, Object> findAllCompanies();
-    TestDetailsDTO addCompany(CompanyDTO companyDTO);
-
+    List<Company> findAllCompanies();
+    void addCompany(CompanyDTO companyDTO);
 }

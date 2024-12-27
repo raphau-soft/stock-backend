@@ -1,7 +1,6 @@
 package com.raphau.springboot.stockExchange.service.implementation;
 
 import com.raphau.springboot.stockExchange.dao.StockRateRepository;
-import com.raphau.springboot.stockExchange.dto.TestDetailsDTO;
 import com.raphau.springboot.stockExchange.entity.Stock;
 import com.raphau.springboot.stockExchange.entity.StockRate;
 import com.raphau.springboot.stockExchange.entity.User;
@@ -10,12 +9,14 @@ import com.raphau.springboot.stockExchange.exception.UserNotFoundException;
 import com.raphau.springboot.stockExchange.security.MyUserDetails;
 import com.raphau.springboot.stockExchange.service.api.StockService;
 import com.raphau.springboot.stockExchange.service.api.UserService;
+import com.raphau.springboot.stockExchange.utils.AuthUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class StockServiceImpl implements StockService {
@@ -28,76 +29,38 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public Map<String, Object> findResources() {
-        long timeApp = System.currentTimeMillis();
-        TestDetailsDTO testDetailsDTO = new TestDetailsDTO();
-        long timeBase = System.currentTimeMillis();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        MyUserDetails userDetails = (MyUserDetails) auth.getPrincipal();
-        Optional<User> userOpt = userService.findByUsername(userDetails.getUsername());
-        testDetailsDTO.setDatabaseTime(System.currentTimeMillis() - timeBase);
+        String username = AuthUtils.getAuthenticatedUsername();
+        User user = getUserByUsername(username);
 
-        if(!userOpt.isPresent()){
-            throw new UserNotFoundException("User " + userDetails.getUsername() + " not found");
-        }
-        User user = userOpt.get();
-        List<Stock> stocks = user.getStocks();
-        List<StockRate> stockRates = new ArrayList<>();
-        stocks.removeIf(stock -> stock.getAmount() == 0);
-        for (Stock stock : stocks) {
-            timeBase = System.currentTimeMillis();
-            Optional<StockRate> stockRate = stockRateRepository.findByCompanyAndActual(stock.getCompany(), true);
-            testDetailsDTO.setDatabaseTime(System.currentTimeMillis() - timeBase + testDetailsDTO.getDatabaseTime());
-            if(!stockRate.isPresent()){
-                throw new StockRateNotFoundException("Actual stock rate for " + stock.getCompany().getName() + " not found");
-            }
-            stockRates.add(stockRate.get());
-        }
+        List<Stock> stocks = filterStocksWithPositiveAmount(user.getStocks());
 
-        Map<String, Object> objects = new HashMap<>();
-        objects.put("stock", stocks);
-        objects.put("stockRate", stockRates);
-        objects.put("testDetails", testDetailsDTO);
-        testDetailsDTO.setApplicationTime(System.currentTimeMillis() - timeApp);
-        return objects;
+        List<StockRate> stockRates = getStockRatesForStocks(stocks);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("stock", stocks);
+        result.put("stockRate", stockRates);
+
+        return result;
     }
 
-    @Override
-    public Map<String, Object> findResources(String username) {
-        long timeApp = System.currentTimeMillis();
-        TestDetailsDTO testDetailsDTO = new TestDetailsDTO();
-        long timeBase = System.currentTimeMillis();
+    private User getUserByUsername(String username) {
+        return userService.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("User " + username + " not found"));
+    }
 
-        Optional<User> userOpt = userService.findByUsername(username);
-        testDetailsDTO.setDatabaseTime(System.currentTimeMillis() - timeBase);
+    private List<Stock> filterStocksWithPositiveAmount(List<Stock> stocks) {
+        return stocks.stream()
+                .filter(stock -> stock.getAmount() > 0)
+                .collect(Collectors.toList());
+    }
 
-        if(!userOpt.isPresent()){
-            throw new UserNotFoundException("User " + username + " not found");
-        }
-        User user = userOpt.get();
-        List<Stock> stocks = user.getStocks();
+    private List<StockRate> getStockRatesForStocks(List<Stock> stocks) {
         List<StockRate> stockRates = new ArrayList<>();
-        stocks.removeIf(stock -> stock.getAmount() == 0);
         for (Stock stock : stocks) {
-            timeBase = System.currentTimeMillis();
-            Optional<StockRate> stockRate = stockRateRepository.findByCompanyAndActual(stock.getCompany(), true);
-            testDetailsDTO.setDatabaseTime(System.currentTimeMillis() - timeBase + testDetailsDTO.getDatabaseTime());
-            if(!stockRate.isPresent()){
-                Map<String, Object> objects = new HashMap<>();
-                objects.put("username", username);
-                objects.put("stock", new ArrayList<>());
-                objects.put("stockRates", new ArrayList<>());
-                objects.put("testDetails", testDetailsDTO);
-                testDetailsDTO.setApplicationTime(System.currentTimeMillis() - timeApp);
-                return objects;
-            }
-            stockRates.add(stockRate.get());
+            StockRate stockRate = stockRateRepository.findByCompanyAndActual(stock.getCompany(), true)
+                    .orElseThrow(() -> new StockRateNotFoundException("Actual stock rate for " + stock.getCompany().getName() + " not found"));
+            stockRates.add(stockRate);
         }
-        Map<String, Object> objects = new HashMap<>();
-        objects.put("username", username);
-        objects.put("stock", stocks);
-        objects.put("stockRates", stockRates);
-        objects.put("testDetails", testDetailsDTO);
-        testDetailsDTO.setApplicationTime(System.currentTimeMillis() - timeApp);
-        return objects;
+        return stockRates;
     }
 }

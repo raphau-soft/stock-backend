@@ -1,7 +1,6 @@
 package com.raphau.springboot.stockExchange.service.implementation;
 
 import com.raphau.springboot.stockExchange.dao.StockRateRepository;
-import com.raphau.springboot.stockExchange.dto.TestDetailsDTO;
 import com.raphau.springboot.stockExchange.entity.StockRate;
 import com.raphau.springboot.stockExchange.service.api.StockRateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +17,7 @@ public class StockRateServiceImpl implements StockRateService {
     private StockRateRepository stockRateRepository;
 
     @Override
-    public Map<String, Object> findAllStockRates() {
-        long timeApp = System.currentTimeMillis();
-        TestDetailsDTO testDetailsDTO = new TestDetailsDTO();
-        long timeBase = System.currentTimeMillis();
-        List<StockRate> stockRateList = stockRateRepository.findByActual(true);
-        testDetailsDTO.setDatabaseTime(System.currentTimeMillis() - timeBase);
-        Map<String, Object> objects = new HashMap<>();
-        objects.put("stockRate", stockRateList);
-        objects.put("testDetails", testDetailsDTO);
-        testDetailsDTO.setApplicationTime(System.currentTimeMillis() - timeApp);
-        return objects;
+    public List<StockRate> findAllStockRates() {
+        return stockRateRepository.findByActual(true);
     }
 }

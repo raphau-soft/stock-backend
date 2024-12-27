@@ -32,4 +32,11 @@ public class StockRate implements Serializable {
 
     @Column(name="actual")
     private boolean actual;
+
+    public StockRate(Company company, double rate, Date date, boolean actual) {
+        this.company = company;
+        this.rate = rate;
+        this.date = date;
+        this.actual = actual;
+    }
 }

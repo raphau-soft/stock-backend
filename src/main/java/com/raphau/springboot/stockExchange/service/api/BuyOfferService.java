@@ -1,14 +1,13 @@
 package com.raphau.springboot.stockExchange.service.api;
 
 import com.raphau.springboot.stockExchange.dto.BuyOfferDTO;
-import com.raphau.springboot.stockExchange.dto.TestDetailsDTO;
+import com.raphau.springboot.stockExchange.entity.BuyOffer;
 
+import java.util.List;
 import java.util.Map;
 
 public interface BuyOfferService {
-
-    Map<String, Object> getUserBuyOffers();
-    TestDetailsDTO deleteBuyOffer(int theId);
-    TestDetailsDTO addOffer(BuyOfferDTO buyOfferDTO);
-
+    List<BuyOffer> getUserBuyOffers();
+    void deleteBuyOffer(int theId);
+    void addOffer(BuyOfferDTO buyOfferDTO);
 }

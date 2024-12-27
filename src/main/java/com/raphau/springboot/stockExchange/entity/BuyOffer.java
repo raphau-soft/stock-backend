@@ -3,6 +3,7 @@ package com.raphau.springboot.stockExchange.entity;
 import com.raphau.springboot.stockExchange.dto.BuyOfferDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 public class BuyOffer implements Serializable {
 
     @Id

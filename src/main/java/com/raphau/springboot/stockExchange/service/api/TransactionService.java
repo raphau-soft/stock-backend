@@ -1,9 +1,9 @@
 package com.raphau.springboot.stockExchange.service.api;
 
-import java.util.Map;
+import com.raphau.springboot.stockExchange.entity.Transaction;
+
+import java.util.List;
 
 public interface TransactionService {
-
-    Map<String, Object> findAllTransactions();
-
+    List<Transaction> findAllTransactions();
 }

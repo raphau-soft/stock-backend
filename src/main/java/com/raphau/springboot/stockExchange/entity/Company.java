@@ -32,8 +32,7 @@ public class Company {
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<StockRate> stock_rates;
 
-    public Company(int id, String name) {
-        this.id = id;
+    public Company(String name) {
         this.name = name;
     }
 }

@@ -1,9 +1,9 @@
 package com.raphau.springboot.stockExchange.service.api;
 
-import java.util.Map;
+import com.raphau.springboot.stockExchange.entity.StockRate;
+
+import java.util.List;
 
 public interface StockRateService {
-
-    Map<String, Object> findAllStockRates();
-
+    List<StockRate> findAllStockRates();
 }
