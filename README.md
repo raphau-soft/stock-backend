@@ -11,8 +11,12 @@ This project is a Spring Boot application initially developed as part of a maste
 * __Java__: The core programming language.
 * __Spring Boot__: For building the application framework.
 * __Spring Data JPA__: For database interactions.
-* __MySQL__: Specify which database is used.
+* __Spring Security__: For authentication and authorization.
+* __Flyway__: For database version control and migrations.
+* __Swagger/OpenAPI__: For API documentation and testing.
+* __MySQL__: For storing and managing application data.
 * __Maven__: For dependency management and build.
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
