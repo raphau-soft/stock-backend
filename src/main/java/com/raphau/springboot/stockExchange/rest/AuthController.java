@@ -1,15 +1,14 @@
 package com.raphau.springboot.stockExchange.rest;
 
-import com.raphau.springboot.stockExchange.payload.request.LoginRequest;
-import com.raphau.springboot.stockExchange.payload.request.SignupRequest;
-import com.raphau.springboot.stockExchange.payload.response.JwtResponse;
-import com.raphau.springboot.stockExchange.payload.response.MessageResponse;
+import com.raphau.springboot.stockExchange.dto.LoginRequest;
+import com.raphau.springboot.stockExchange.dto.SignupRequest;
+import com.raphau.springboot.stockExchange.dto.JwtResponse;
 import com.raphau.springboot.stockExchange.security.MyUserDetails;
 import com.raphau.springboot.stockExchange.security.jwt.JwtUtils;
-import com.raphau.springboot.stockExchange.service.api.CompanyService;
-import com.raphau.springboot.stockExchange.service.api.UserService;
+import com.raphau.springboot.stockExchange.service.CompanyService;
+import com.raphau.springboot.stockExchange.service.UserService;
+import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
-import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -43,7 +42,7 @@ public class AuthController {
     private JwtUtils jwtUtils;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> signin(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> signin(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -59,9 +58,9 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody SignupRequest signupRequest) {
+    public ResponseEntity<?> signup(@Valid @RequestBody SignupRequest signupRequest) {
         userService.createUser(signupRequest);
-        return ResponseEntity.ok(new MessageResponse("User registered successfully"));
+        return ResponseEntity.ok("User registered successfully");
     }
 
 }

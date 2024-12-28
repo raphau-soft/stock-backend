@@ -1,13 +1,13 @@
-package com.raphau.springboot.stockExchange.service.implementation;
+package com.raphau.springboot.stockExchange.service;
 
 
 import com.raphau.springboot.stockExchange.dao.BuyOfferRepository;
 import com.raphau.springboot.stockExchange.dao.UserRepository;
+import com.raphau.springboot.stockExchange.dto.UserDTO;
 import com.raphau.springboot.stockExchange.entity.User;
 import com.raphau.springboot.stockExchange.exception.UserAlreadyExistsException;
 import com.raphau.springboot.stockExchange.exception.UserNotFoundException;
-import com.raphau.springboot.stockExchange.payload.request.SignupRequest;
-import com.raphau.springboot.stockExchange.service.api.UserService;
+import com.raphau.springboot.stockExchange.dto.SignupRequest;
 import com.raphau.springboot.stockExchange.utils.AuthUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserService {
 
     @Autowired
     private PasswordEncoder encoder;
@@ -54,16 +54,21 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
-    public User getUserDetails() {
+    public UserDTO getUserDetails() {
         String username = AuthUtils.getAuthenticatedUsername();
         User user = findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException("User " + username + " not found"));
 
-        user.setPassword(null);
-        return user;
+        return UserDTO.builder()
+                .username(user.getUsername())
+                .name(user.getName())
+                .surname(user.getSurname())
+                .email(user.getEmail())
+                .role(user.getRole())
+                .money(user.getMoney())
+                .build();
     }
 
-    @Override
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }

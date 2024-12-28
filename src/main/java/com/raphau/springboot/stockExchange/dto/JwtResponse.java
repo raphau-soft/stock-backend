@@ -1,4 +1,4 @@
-package com.raphau.springboot.stockExchange.payload.response;
+package com.raphau.springboot.stockExchange.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

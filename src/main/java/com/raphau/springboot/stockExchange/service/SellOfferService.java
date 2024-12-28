@@ -1,4 +1,4 @@
-package com.raphau.springboot.stockExchange.service.implementation;
+package com.raphau.springboot.stockExchange.service;
 
 import com.raphau.springboot.stockExchange.dao.CompanyRepository;
 import com.raphau.springboot.stockExchange.dao.SellOfferRepository;
@@ -9,8 +9,6 @@ import com.raphau.springboot.stockExchange.entity.SellOffer;
 import com.raphau.springboot.stockExchange.entity.Stock;
 import com.raphau.springboot.stockExchange.entity.User;
 import com.raphau.springboot.stockExchange.exception.*;
-import com.raphau.springboot.stockExchange.service.api.SellOfferService;
-import com.raphau.springboot.stockExchange.service.api.UserService;
 import com.raphau.springboot.stockExchange.utils.AuthUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class SellOfferServiceImpl implements SellOfferService {
+public class SellOfferService {
 
     @Autowired
     private UserService userService;
@@ -33,7 +31,6 @@ public class SellOfferServiceImpl implements SellOfferService {
     @Autowired
     private CompanyRepository companyRepository;
 
-    @Override
     public List<SellOffer> getUserSellOffers() {
         String username = AuthUtils.getAuthenticatedUsername();
         User user = getUserByUsername(username);
@@ -43,7 +40,6 @@ public class SellOfferServiceImpl implements SellOfferService {
                 .collect(Collectors.toList());
     }
 
-    @Override
     public void deleteSellOffer(int id) {
         String username = AuthUtils.getAuthenticatedUsername();
         User user = getUserByUsername(username);
@@ -62,10 +58,10 @@ public class SellOfferServiceImpl implements SellOfferService {
         sellOfferRepository.save(sellOffer);
     }
 
-    @Override
     public void addSellOffer(SellOfferDTO sellOfferDTO) {
+        String username = AuthUtils.getAuthenticatedUsername();
         Company company = getCompanyById(sellOfferDTO.getCompany_id());
-        User user = getUserByUsername(sellOfferDTO.getUsername());
+        User user = getUserByUsername(username);
         Stock stock = getStockByCompanyAndUser(company, user);
 
         validateSellAmount(stock, sellOfferDTO.getAmount());

@@ -1,4 +1,4 @@
-package com.raphau.springboot.stockExchange.service.implementation;
+package com.raphau.springboot.stockExchange.service;
 
 import com.raphau.springboot.stockExchange.dao.StockRateRepository;
 import com.raphau.springboot.stockExchange.entity.Stock;
@@ -6,20 +6,15 @@ import com.raphau.springboot.stockExchange.entity.StockRate;
 import com.raphau.springboot.stockExchange.entity.User;
 import com.raphau.springboot.stockExchange.exception.StockRateNotFoundException;
 import com.raphau.springboot.stockExchange.exception.UserNotFoundException;
-import com.raphau.springboot.stockExchange.security.MyUserDetails;
-import com.raphau.springboot.stockExchange.service.api.StockService;
-import com.raphau.springboot.stockExchange.service.api.UserService;
 import com.raphau.springboot.stockExchange.utils.AuthUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class StockServiceImpl implements StockService {
+public class StockService {
 
     @Autowired
     private UserService userService;
@@ -27,7 +22,6 @@ public class StockServiceImpl implements StockService {
     @Autowired
     private StockRateRepository stockRateRepository;
 
-    @Override
     public Map<String, Object> findResources() {
         String username = AuthUtils.getAuthenticatedUsername();
         User user = getUserByUsername(username);

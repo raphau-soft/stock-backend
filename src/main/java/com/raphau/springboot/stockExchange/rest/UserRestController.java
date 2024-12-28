@@ -1,9 +1,9 @@
 package com.raphau.springboot.stockExchange.rest;
 
-import com.raphau.springboot.stockExchange.service.api.BuyOfferService;
-import com.raphau.springboot.stockExchange.service.api.SellOfferService;
-import com.raphau.springboot.stockExchange.service.api.StockService;
-import com.raphau.springboot.stockExchange.service.api.UserService;
+import com.raphau.springboot.stockExchange.service.BuyOfferService;
+import com.raphau.springboot.stockExchange.service.SellOfferService;
+import com.raphau.springboot.stockExchange.service.StockService;
+import com.raphau.springboot.stockExchange.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

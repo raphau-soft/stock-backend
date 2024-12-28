@@ -1,6 +1,5 @@
 package com.raphau.springboot.stockExchange.entity;
 
-import com.raphau.springboot.stockExchange.dto.BuyOfferDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -50,15 +49,4 @@ public class BuyOffer implements Serializable {
 
     @Column(name="actual")
     private boolean actual;
-    
-    public BuyOffer(BuyOfferDTO buyOfferDTO, User user, Company company) {
-        this.id = buyOfferDTO.getId();
-        this.company = company;
-        this.user = user;
-        this.maxPrice = buyOfferDTO.getMaxPrice();
-        this.startAmount = buyOfferDTO.getAmount();
-        this.amount = buyOfferDTO.getAmount();
-        this.dateLimit = buyOfferDTO.getDateLimit();
-        this.actual = true;
-    }
 }

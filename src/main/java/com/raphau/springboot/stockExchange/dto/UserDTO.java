@@ -12,10 +12,10 @@ import java.math.BigDecimal;
 @Data
 @Builder
 public class UserDTO {
+    private String username;
     private String name;
     private String surname;
-    private String username;
+    private String email;
     private String role;
     private BigDecimal money;
-    private String email;
 }

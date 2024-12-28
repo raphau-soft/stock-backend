@@ -1,4 +1,4 @@
-package com.raphau.springboot.stockExchange.service.implementation;
+package com.raphau.springboot.stockExchange.service;
 
 import com.raphau.springboot.stockExchange.dao.BuyOfferRepository;
 import com.raphau.springboot.stockExchange.dao.CompanyRepository;
@@ -8,8 +8,6 @@ import com.raphau.springboot.stockExchange.entity.BuyOffer;
 import com.raphau.springboot.stockExchange.entity.Company;
 import com.raphau.springboot.stockExchange.entity.User;
 import com.raphau.springboot.stockExchange.exception.*;
-import com.raphau.springboot.stockExchange.service.api.BuyOfferService;
-import com.raphau.springboot.stockExchange.service.api.UserService;
 import com.raphau.springboot.stockExchange.utils.AuthUtils;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,7 @@ import java.util.*;
 
 
 @Service
-public class BuyOfferServiceImpl implements BuyOfferService {
+public class BuyOfferService {
 
     @Autowired
     private UserService userService;
@@ -34,7 +32,6 @@ public class BuyOfferServiceImpl implements BuyOfferService {
     @Autowired
     private CompanyRepository companyRepository;
 
-    @Override
     public List<BuyOffer> getUserBuyOffers() {
         String username = AuthUtils.getAuthenticatedUsername();
         User user = userService.findByUsername(username)
@@ -45,7 +42,6 @@ public class BuyOfferServiceImpl implements BuyOfferService {
                 .toList();
     }
 
-    @Override
     public void deleteBuyOffer(int id) {
         String username = AuthUtils.getAuthenticatedUsername();
         User user = userService.findByUsername(username)
@@ -65,18 +61,18 @@ public class BuyOfferServiceImpl implements BuyOfferService {
         buyOfferRepository.save(buyOffer);
     }
 
-    @Override
     @Transactional
     public void addOffer(BuyOfferDTO buyOfferDTO) {
-        User user = userRepository.findByUsername(buyOfferDTO.getUsername())
-                .orElseThrow(() -> new UserNotFoundException("User not found: " + buyOfferDTO.getUsername()));
+        String username = AuthUtils.getAuthenticatedUsername();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("User not found: " + username));
 
         Company company = companyRepository.findById(buyOfferDTO.getCompany_id())
                 .orElseThrow(() -> new CompanyNotFoundException("Company not found: " + buyOfferDTO.getCompany_id()));
 
         BigDecimal totalCost = buyOfferDTO.getMaxPrice().multiply(BigDecimal.valueOf(buyOfferDTO.getAmount()));
         if (totalCost.compareTo(user.getMoney()) > 0 || buyOfferDTO.getAmount() <= 0) {
-            throw new InsufficientFundsException("User" + buyOfferDTO.getUsername() + " does not have enough money or invalid amount.");
+            throw new InsufficientFundsException("User" + username + " does not have enough money or invalid amount.");
         }
 
         user.setMoney(user.getMoney().subtract(totalCost));

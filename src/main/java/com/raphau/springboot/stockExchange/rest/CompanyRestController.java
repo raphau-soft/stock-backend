@@ -1,10 +1,10 @@
 package com.raphau.springboot.stockExchange.rest;
 
 import com.raphau.springboot.stockExchange.dto.CompanyDTO;
-import com.raphau.springboot.stockExchange.service.api.CompanyService;
+import com.raphau.springboot.stockExchange.service.CompanyService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,7 +19,7 @@ public class CompanyRestController {
     }
 
     @PostMapping("/company")
-    public ResponseEntity<?> addCompany(@RequestBody CompanyDTO companyDTO) {
+    public ResponseEntity<?> addCompany(@Valid @RequestBody CompanyDTO companyDTO) {
         companyService.addCompany(companyDTO);
         return ResponseEntity.ok().build();
     }

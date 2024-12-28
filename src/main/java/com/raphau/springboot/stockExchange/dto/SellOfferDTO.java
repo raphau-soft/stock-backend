@@ -11,11 +11,8 @@ import java.util.Date;
 @AllArgsConstructor
 @Data
 public class SellOfferDTO {
-    private int id;
-    private String username;
     private int company_id;
     private BigDecimal minPrice;
     private int amount;
     private Date dateLimit;
-    private long timeDataId;
 }

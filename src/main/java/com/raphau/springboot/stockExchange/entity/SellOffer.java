@@ -50,7 +50,6 @@ public class SellOffer {
     private boolean actual;
 
     public SellOffer(SellOfferDTO sellOfferDTO, User user, Stock stock) {
-        this.id = sellOfferDTO.getId();
         this.stock = stock;
         this.user = user;
         this.startAmount = sellOfferDTO.getAmount();

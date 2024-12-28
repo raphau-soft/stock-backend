@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class GetDataDTO  {
-    private String username;
-    private long timeDataId;
+public class FieldError {
+    private String name;
+    private String field;
+    private String message;
 }

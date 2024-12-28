@@ -1,9 +1,8 @@
-package com.raphau.springboot.stockExchange.service.implementation;
+package com.raphau.springboot.stockExchange.service;
 
 import com.raphau.springboot.stockExchange.dao.*;
 import com.raphau.springboot.stockExchange.entity.*;
 import com.raphau.springboot.stockExchange.exception.StockRateNotFoundException;
-import com.raphau.springboot.stockExchange.service.api.TradeService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -13,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 @Service
-public class TradeServiceImpl implements TradeService {
+public class TradeService {
 
     @Autowired
     private BuyOfferRepository buyOfferRepository;
@@ -30,7 +29,6 @@ public class TradeServiceImpl implements TradeService {
     @Autowired
     private CompanyRepository companyRepository;
 
-    @Override
     @Scheduled(cron = "0 0 * * * ?")
     @Transactional
     public void trade() {
