@@ -28,7 +28,7 @@ public class SignupRequest {
 
     @NotBlank(message = "Password cannot be empty")
     @Size(min = 6, max = 100, message = "Password must be between 6 and 100 characters")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*(),.?\":{}|<>])[A-Za-z\\d!@#$%^&*(),.?\":{}|<>]{6,100}$",
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*(),.?\":{}|<>]).*$",
             message = "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character")
     private String password;
 
